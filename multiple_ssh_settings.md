@@ -83,5 +83,5 @@ then use normal flow to push your code
 	$ git commit -m "your comments"
 	$ git push
 
-https://gist.github.com/jexchan/2351996
+Source: https://gist.github.com/jexchan/2351996
 
