@@ -12,6 +12,9 @@ Docker&Kubernetes
 --
 [Configuring the Ultimate Development Environment for Kubernetes](https://thenewstack.io/tutorial-configuring-ultimate-development-environment-kubernetes/)
 
+[Spring Cloud(Microservices) & Kubernetes+Docker](https://developers.redhat.com/blog/2016/12/09/spring-cloud-for-microservices-compared-to-kubernetes/) - how each platform (Spring Cloud and Kubernetes) is helping in delivering Microservice based architectures (MSA), in which areas they are good at, and how to take best of both worlds in order to succeed in the Microservices journey.  
+[fabric8](https://spring.fabric8.io/#how-easy-is-it) - make it easier to build your Docker images and deploy to Kubernetes  
+[fabric8 guide](http://fabric8.io/guide/overview.html)
 
 AI: Augmented reality, ML
 -----------------
