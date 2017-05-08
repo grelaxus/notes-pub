@@ -445,12 +445,12 @@ Interact with the mobile app, and gain insights by viewing the behind-the-scenes
     - *What was the URL path of the API request that was issued?*
     - *For this User Pools Authorizer request, which HTTP headers were sent as part of the HTTP request?*
 	<details><summary>HTTP headers</summary><p>
+	"authorization" => "eyJraWQiOiJpK29xRmhHKzJcL0RtNXBVUWNMbGE..." - this is identity token, received in when sign in in previous steps
 
-	```http
+	```json
 	GET https://qyt4c7jmsd.execute-api.us-east-1.amazonaws.com/development/locations 
 	Headers: ...
-		0: {"authorization" => "eyJraWQiOiJpK29xRmhHKzJcL0RtNXBVUWNMbGE3bW5aSWRxRG5IdXhGZEtnV3dLcjdCRT0iLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiI2NTI3YTU1ZC01NDk4LTQyOGItYTk5Ny04MjEzOTgxYzcwY2QiLCJhdWQiOiIxMzM5OXZvb2ltZXM2MnY4YWhsbnI4M2dlaSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJ0b2tlbl91c2UiOiJpZCIsImF1dGhfdGltZSI6MTqweqwetYWlsLmNvbSJ9.FZDcSmBpNSkhXL7-GlyNehYzS5MarF3RCLQIiuj8R6dgsdfsdJmPptSsAeP77nQTfZSqN--SbLmGqrap37rIsdfsHIRBHicbxQoKd0TdiurGDfDecDKiuYgim7UgIfUA0Dn1h8smg"
-	//this is identity token, received in when sign in in previous steps
+		0: {"authorization" => "eyJraWQiOiJpK29x_shorter_iLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiI2NTI3YTU1ZC01NDk4LTQyOGItYTk5Ny04MjEzOTgxYzcwY2QiLCJhdWQiOiIxMzM5OXZvb2ltZXM2MnY4YWhsbnI4M2dlaSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJ0b2tlbl91c2UiOiJpZCIsImF1dG_shorter_YWlsLmNvbSJ9.FZDcSmBpNSkhXL7-GlyNehYzS5_shorter_fsdJmPptSsAeP77nQTfZSqN--SbLmGqrap37rIsdfsHIRBHicbxQoKd0TdiurGDfDecDKiuYgim7UgIfUA0Dn1h8smg"}
 
 	Request URL:https://qyt4c7jmsd.execute-api.us-east-1.amazonaws.com/development/locations
 	Request Method:OPTIONS
