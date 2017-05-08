@@ -713,7 +713,91 @@ Interact with the mobile app, and gain insights by viewing the behind-the-scenes
 1.  **While still on the "Authorizers" screen, click on 'spacefinder-custom-authorizer' to view details.**
 1.  **In the righthand pane, scroll down to the "Test your authorizer" section. Paste the identity token into the "Identity token" textfield, and click "Test"**
     - *You should see an IAM Policy with permissions to Allow restricted access to the API operations. The IAM Policy also has explicit Deny statements to block the creation or deletion of locations/resources.*
+	<details><summary>first test expired identity token</summary><p>
 
+	```json
+	Policy
+	{
+	  "Version": "2012-10-17",
+	  "Statement": [
+	    {
+	      "Action": "execute-api:Invoke",
+	      "Effect": "Deny",
+	      "Resource": [
+		"arn:aws:execute-api:us-east-1:989972760655:qyt4c7jmsd/null/*/*"
+	      ]
+	    }
+	  ]
+	}
+	```
+	</p></details>
+
+	<details><summary>Logs</summary><p>
+
+	```http
+
+	Execution log for request test-request
+	Sun May 07 05:37:15 UTC 2017 : Starting authorizer: 2egbc3 for request: test-request
+	Sun May 07 05:37:15 UTC 2017 : Incoming identity: eyJraWQiOiJpK29xRmhHKzJcL_shortcut_iLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiI2NTI3YTU1Z_shortcut_WwiOiJ2aWN0b3JzZmJhQGdtYWlsLmNvbSJ9.FZDcSmBpNS_shortcut_DKiuYgim7UgIfUA0Dn1h8smg
+	Sun May 07 05:37:15 UTC 2017 : Endpoint request URI: https://lambda.us-east-1.amazonaws.com/2015-03-31/functions/arn:aws:lambda:us-east-1:989972760655:function:spacefinder-api-development-authorizer-Custom/invocations
+	Sun May 07 05:37:15 UTC 2017 : Endpoint request headers: {x-amzn-lambda-integration-tag=test-request, Authorization=****************************************************************************************************************************************************************************************************************************************************************************************************************************************1ed243, X-Amz-Date=20170507T053715Z, x-amzn-apigateway-api-id=qyt4c7jmsd, X-Amz-Source-Arn=arn:aws:execute-api:us-east-1:989972760655:qyt4c7jmsd/authorizers/2egbc3, Accept=application/json, User-Agent=AmazonAPIGateway_qyt4c7jmsd, X-Amz-Security-Token=FQoDYXdzECUaDHgYEL/vboC4Di_shortcut_6HXaqkurgjWsgwgNE6PmOqI1h9TsKBbMrzHJvppyrQArGPOj6ItWwk3YW/Sj4l2hH6 [TRUNCATED]
+	Sun May 07 05:37:15 UTC 2017 : Endpoint request body after transformations: {"type":"TOKEN","authorizationToken":
+	"eyJraWQiOiJpK29xRmhHKzJcL_shortcut_iLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiI2NTI3YTU1Z_shortcut_WwiOiJ2aWN0b3JzZmJhQGdtYWlsLmNvbSJ9.FZDcSmBpN_shortcut_DKiuYgim7UgIfUA0Dn1h8smg","methodArn":"arn:aws:execute-ap [TRUNCATED]
+	Sun May 07 05:37:15 UTC 2017 : Authorizer result body before parsing: {"principalId":"","policyDocument":{"Version":"2012-10-17","Statement":[{"Action":"execute-api:Invoke","Effect":"Deny","Resource":["arn:aws:execute-api:us-east-1:989972760655:qyt4c7jmsd/null/*/*"]}]}}
+	Sun May 07 05:37:15 UTC 2017 : Using valid authorizer policy for principal: 
+	Sun May 07 05:37:15 UTC 2017 : Successfully completed authorizer execution
+
+	```
+	</p></details>
+
+	<details><summary>Now with valid token</summary><p>
+
+	```json
+	Principal Id: 6527a55d-5498-428b-a997-8213981c70cd
+	Policy
+	{
+	  "Version": "2012-10-17",
+	  "Statement": [
+	    {
+	      "Action": "execute-api:Invoke",
+	      "Effect": "Allow",
+	      "Resource": [
+		"arn:aws:execute-api:us-east-1:989972760655:qyt4c7jmsd/null/*/*"
+	      ]
+	    },
+	    {
+	      "Action": "execute-api:Invoke",
+	      "Effect": "Deny",
+	      "Resource": [
+		"arn:aws:execute-api:us-east-1:989972760655:qyt4c7jmsd/null/DELETE/locations",
+		"arn:aws:execute-api:us-east-1:989972760655:qyt4c7jmsd/null/DELETE/locations/*",
+		"arn:aws:execute-api:us-east-1:989972760655:qyt4c7jmsd/null/POST/locations",
+		"arn:aws:execute-api:us-east-1:989972760655:qyt4c7jmsd/null/POST/locations/*"
+	      ]
+	    }
+	  ]
+	}
+	```
+	</p></details>
+
+	<details><summary>Logs</summary><p>
+
+	```http
+
+	Execution log for request test-request
+	Sun May 07 05:41:54 UTC 2017 : Starting authorizer: 2egbc3 for request: test-request
+	Sun May 07 05:41:54 UTC 2017 : Incoming identity: eyJraWQiOiJpK29xRmhHKzJcL0RtN_shortcut_dCRT0iLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiI2N_shortcut_J2aWN0b3JzZmJhQGdtYWlsLmNvbSJ9.DL9bq2T6mXwcCGadf9GK3jKtFNbaDbvXHhwA5RwsFIXNVlBNya5V7RWHkf-Q8bjsG_shortcut_89rheK5o25NA6Lu-NWNReezYQtnj4PVdAU7N629VTinH7SXTbA
+	Sun May 07 05:41:54 UTC 2017 : Endpoint request URI: https://lambda.us-east-1.amazonaws.com/2015-03-31/functions/arn:aws:lambda:us-east-1:989972760655:function:spacefinder-api-development-authorizer-Custom/invocations
+	Sun May 07 05:41:54 UTC 2017 : Endpoint request headers: {x-amzn-lambda-integration-tag=test-request, Authorization=****************************************************************************************************************************************************************************************************************************************************************************************************************************************0fbbc0, X-Amz-Date=20170507T054154Z, x-amzn-apigateway-api-id=qyt4c7jmsd, X-Amz-Source-Arn=arn:aws:execute-api:us-east-1:989972760655:qyt4c7jmsd/authorizers/2egbc3, Accept=application/json, User-Agent=AmazonAPIGateway_qyt4c7jmsd, X-Amz-Security-Token=FQoDYXdzECYaDABjmUmzE/14JQTPViK3A_shortcut_R4oEtlMTqaHkud/hh0w2Xp+u4heOROidfrC3OjSMymv [TRUNCATED]
+	Sun May 07 05:41:54 UTC 2017 : Endpoint request body after transformations: {"type":"TOKEN","authorizationToken":
+	"eyJraWQiOiJpK29xRmhHKzJcL0RtN_shortcut_dCRT0iLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiI2N_shortcut_J2aWN0b3JzZmJhQGdtYWlsLmNvbSJ9.DL9bq2T6mXwcCGadf9GK3jKtFNbaDbvXHhwA5RwsFIXNVlBNya5V7RWHkf-Q8bjsG_shortcut_89rheK5o25NA6Lu-NWNReezYQtnj4PVdAU7N629VTinH7SXTbA","methodArn":"arn:aws:execute-ap [TRUNCATED]
+	Sun May 07 05:41:54 UTC 2017 : Authorizer result body before parsing: {"principalId":"6527a55d-5498-428b-a997-8213981c70cd","policyDocument":{"Version":"2012-10-17","Statement":[{"Action":"execute-api:Invoke","Effect":"Allow","Resource":["arn:aws:execute-api:us-east-1:989972760655:qyt4c7jmsd/null/*/*"]},{"Action":"execute-api:Invoke","Effect":"Deny","Resource":["arn:aws:execute-api:us-east-1:989972760655:qyt4c7jmsd/null/DELETE/locations","arn:aws:execute-api:us-east-1:989972760655:qyt4c7jmsd/null/DELETE/locations/*","arn:aws:execute-api:us-east-1:989972760655:qyt4c7jmsd/null/POST/locations","arn:aws:execute-api:us-east-1:989972760655:qyt4c7jmsd/null/POST/locations/*"]}]}}
+	Sun May 07 05:41:54 UTC 2017 : Using valid authorizer policy for principal: ******************************1c70cd
+	Sun May 07 05:41:54 UTC 2017 : Successfully completed authorizer execution
+
+
+	```
+	</p></details>
 ---
 
 ### I. Logging in as an Admin
