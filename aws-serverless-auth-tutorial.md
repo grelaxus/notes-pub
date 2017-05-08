@@ -184,12 +184,69 @@ Setup is quick and easy. You'll provision an EC2 instance, and run the pre-built
 		cd /home/aws-serverless-auth-reference-app/api
 		gulp deploy
 		gulp bootstrap
-
+    <details><summary>gulp deploy log</summary><p>
+    
+    ```sh
+    [Docker container (aws-serverless-auth-reference-app): /home/aws-serverless-
+    auth-reference-app/api]  gulp bootstrap
+    [03:12:34] Using gulpfile /home/aws-serverless-auth-reference-app/api/gulpfile.js
+    [03:12:34] Starting 'bootstrap'...
+    [03:12:34] Starting 'generate_sample_data'...
+    [2017-05-07T03:12:34.092Z]  INFO: spacefinder/200 on 92b9ce9f42b8: Generating sample data
+    [03:12:34] Finished 'generate_sample_data' after 108 ms
+    [03:12:34] Finished 'bootstrap' after 111 ms
+    
+    ```
+    </p></details>
 1. **Start the Ionic 2 server.** This starts up the Ionic 2 server listening on port 8100, which is port-mapped (via Docker) to port 80 of the host EC2 instance.
 
 		cd /home/aws-serverless-auth-reference-app/app
 		ionic serve
-
+		
+	<details><summary>ionic serve log</summary><p>
+	
+    ```sh
+    [Docker container (aws-serverless-auth-reference-app): /home/aws-serverless-
+    auth-reference-app/app]  ionic serve
+    ******************************************************
+     Dependency warning - for the CLI to run correctly,      
+     it is highly recommended to install/upgrade the following:     
+    
+     Please install your Cordova CLI to version  >=4.2.0 `npm install -g cordova`
+    
+    ******************************************************
+    
+    Running 'serve:before' npm script before serve
+    
+    > SpaceFinder@ watch /home/aws-serverless-auth-reference-app/app
+    > ionic-app-scripts watch
+    
+    [03:13:39]  ionic-app-scripts 1.0.0 
+    [03:13:39]  watch started ... 
+    [03:13:39]  build dev started ... 
+    [03:13:39]  clean started ... 
+    [03:13:39]  clean finished in 1 ms 
+    [03:13:39]  copy started ... 
+    [03:13:39]  transpile started ... 
+    [03:13:44]  transpile finished in 4.82 s 
+    [03:13:44]  webpack started ... 
+    [03:13:48]  copy finished in 9.17 s 
+    [03:13:55]  webpack finished in 11.39 s 
+    [03:13:55]  sass started ... 
+    [03:13:57]  sass finished in 1.70 s 
+    [03:13:57]  build dev finished in 17.99 s 
+    [03:13:57]  watch ready in 18.41 s 
+    Running live reload server: http://172.17.0.2:35729
+    Watching: www/**/*, !www/lib/**/*, !www/**/*.map
+    √ Running dev server:  http://172.17.0.2:8100
+    Ionic server commands, enter:
+      restart or r to restart the client app from the root
+      goto or g and a url to have the app navigate to the given url
+      consolelogs or c to enable/disable console log output
+      serverlogs or s to enable/disable server log output
+      quit or q to shutdown the server and exit
+	```
+	</p></details>
 1. **View the hybrid mobile app in your browser**, by visiting:
 
 		http://PUBLIC_DNS_OF_YOUR_EC2_SERVER/
@@ -200,6 +257,94 @@ Setup is quick and easy. You'll provision an EC2 instance, and run the pre-built
 	* It's helpful to have the JavaScript console docked on the right side of the browser main window. This will allow you to see the mobile app and JavaScript console output at the same time.
 
 1. **Resize the browser main window**, to simulate the width of a mobile phone. Please be sure that you can see output displayed in the JavaScript console, as you click around the app.
+	<details><summary>after gulp deployment the script added a bunch of stuff in AWS in us-east-1</summary><p>
+
+	```sh
+
+	Cloud Formation:
+	spacefinder-api-development-stack
+
+	S3
+
+	Lambda:
+	spacefinder-api-development-authorizer-Custom
+	Custom authorizer function for API Gateway to grant admin-only permissions
+	Node.js 4.3
+	6.6 MB
+
+	spacefinder-api-development-locations-List
+	Returns List of 'Locations'
+
+	spacefinder-api-development-resources-Create
+	Add Resource
+
+
+	spacefinder-api-development-locations-Create
+	Adds a Location
+
+
+	spacefinder-api-development-locations-Delete
+	Deletes a Location
+
+	spacefinder-api-development-resources-Get
+	Get resource
+
+
+	spacefinder-api-development-resources-Delete
+	Deletes a Resource
+
+
+	spacefinder-api-development-bookings-Create
+	Add Booking
+
+
+	spacefinder-api-development-resources-List
+	Returns list of 'Resources'
+
+
+	spacefinder-api-development-bookings-Get
+	Get booking
+
+
+	spacefinder-api-development-locations-Get
+	Returns a Location
+
+	spacefinder-api-development-bookings-ListByResourceId
+	Returns List of Bookings associated with Resource
+
+
+	spacefinder-api-development-bookings-ListByUserId
+	Returns List of Bookings associated with a User
+
+
+	spacefinder-api-development-bookings-Delete
+	Delete booking
+
+	API Gateway:
+	Spacefinder-API
+
+	User Pools:
+	spacefinder-api-development-userPool
+
+	Federated identity:
+	spacefinder_api_development_identityPool
+	with User Pool ID
+
+	IAM Roles:
+	spacefinder-api-developme-CognitoIdentityPoolAuthA-90VJT18QBP3L
+	2017-05-06 20:01 PDT
+
+	spacefinder-api-developme-CognitoIdentityPoolAuthS-DODIL6BLNZUT
+	2017-05-06 20:01 PDT
+
+	spacefinder-api-developme-CognitoIdentityPoolUnAut-P1N914OVULXD
+	2017-05-06 20:01 PDT
+
+	spacefinder-api-development-st-LambdaExecutionRole-EKSHQDFB9U9
+	2017-05-06 20:01 PDT
+
+	```
+	</p></details>
 
 # INTERACT AND LEARN (30 minutes)
 
@@ -219,11 +364,49 @@ Interact with the mobile app, and gain insights by viewing the behind-the-scenes
 1. **Copy/paste the identity token into the JWT debugger at <http://jwt.io>, and decode it to see the base64-decoded content.**
 	- *How long is the identity token valid for before it expires?*
     - *Which attributes are encoded in the token?*
+    <details><summary>decoded identity token</summary><p>
+
+	```json
+	decoded identity token:
+	{
+	  "sub": "6527a55d-5498-428b-a997-8213981c70cd",
+	  "aud": "13399vooimes62v8ahlnr83gei",
+	  "email_verified": true,
+	  "token_use": "id",
+	  "auth_time": 1494128661,
+	  "iss": "https://cognito-idp.us-east-1.amazonaws.com/us-east-1_DvCJ5Zbm1",
+	  "cognito:username": "testuser",
+	  "exp": 1494132261,
+	  "given_name": "test",
+	  "iat": 1494128661,
+	  "family_name": "user",
+	  "email": "qqq@qmail.com"
+	}
+	```
+	</p></details>
 1. **Copy/paste the access token into the JWT debugger at <http://jwt.io>, and decode it to see the base64-decoded content.**
 	- *How long is the access token valid for before it expires?*
   - *Which attributes are encoded in the token?*
   - *Which attributes also exist in the identity token? Which ones are different?*
+	<details><summary>decoded access token</summary><p>
 
+	```json
+	decoded access token:
+	{
+	  "sub": "6527a55d-5498-428b-a997-8213981c70cd",
+	  "token_use": "access",
+	  "scope": "aws.cognito.signin.user.admin",
+	  "iss": "https://cognito-idp.us-east-1.amazonaws.com/us-east-1_DvCJ5Zbm1",
+	  "exp": 1494132261,
+	  "iat": 1494128661,
+	  "jti": "1303a3ae-4396-4820-962b-1eefce7c1087",
+	  "client_id": "13399vooimes62v8ahlnr83gei",
+	  "username": "testuser"
+	}
+
+
+	```
+	</p></details>
 ---
 
 ### B. API Gateway authorization using User Pools Authorizer
@@ -234,10 +417,60 @@ Interact with the mobile app, and gain insights by viewing the behind-the-scenes
     - *For this User Pools Authorizer request, which HTTP headers were sent?*
 	- *What HTTP status code is returned?*
 	- *Bonus question: Which HTTP headers are in the HTTP response? (Hint: Look at the Developer Tool's Network tab)*
+	<details><summary>HTTP headers</summary><p>
+
+	```http
+	GET https://qyt4c7jmsd.execute-api.us-east-1.amazonaws.com/development/locations 401 ()
+
+	XMLHttpRequest cannot load https://qyt4c7jmsd.execute-api.us-east-1.amazonaws.com/development/locations. No 'Access-Control-Allow-Origin' header is present on the requested resource. Origin 'http://ec2-54-172-240-121.compute-1.amazonaws.com' is therefore not allowed access. The response had HTTP status code 401.
+
+	Request URL:https://qyt4c7jmsd.execute-api.us-east-1.amazonaws.com/development/locations
+	Request Method:GET
+	Status Code:401 
+	Remote Address:54.192.139.33:443
+	Response Headers
+	content-length:26
+	content-type:application/json
+	date:Sun, 07 May 2017 03:59:58 GMT
+	status:401
+	via:1.1 80f1af730b8d1b6fbf7728eeaff9449b.cloudfront.net (CloudFront)
+	x-amz-cf-id:rTAqY04x2z76Jge2JYL2IikuGC8aKcI7d76-lg1RcKOT9_E5mZmLbw==
+	x-amzn-errortype:UnauthorizedException
+	x-amzn-requestid:a2e66743-32d9-11e7-be8c-3540dc96fff3
+	x-cache:Error from cloudfront
+
+	```
+	</p></details>
 1. **Attempt to load locations "with Auth"**
     - *What was the URL path of the API request that was issued?*
     - *For this User Pools Authorizer request, which HTTP headers were sent as part of the HTTP request?*
+	<details><summary>HTTP headers</summary><p>
 
+	```http
+	GET https://qyt4c7jmsd.execute-api.us-east-1.amazonaws.com/development/locations 
+	Headers: ...
+		0: {"authorization" => "eyJraWQiOiJpK29xRmhHKzJcL0RtNXBVUWNMbGE3bW5aSWRxRG5IdXhGZEtnV3dLcjdCRT0iLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiI2NTI3YTU1ZC01NDk4LTQyOGItYTk5Ny04MjEzOTgxYzcwY2QiLCJhdWQiOiIxMzM5OXZvb2ltZXM2MnY4YWhsbnI4M2dlaSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJ0b2tlbl91c2UiOiJpZCIsImF1dGhfdGltZSI6MTqweqwetYWlsLmNvbSJ9.FZDcSmBpNSkhXL7-GlyNehYzS5MarF3RCLQIiuj8R6dgsdfsdJmPptSsAeP77nQTfZSqN--SbLmGqrap37rIsdfsHIRBHicbxQoKd0TdiurGDfDecDKiuYgim7UgIfUA0Dn1h8smg"
+	//this is identity token, received in when sign in in previous steps
+
+	Request URL:https://qyt4c7jmsd.execute-api.us-east-1.amazonaws.com/development/locations
+	Request Method:OPTIONS
+	Status Code:200 
+	Remote Address:54.192.139.121:443
+	Response Headers
+	access-control-allow-headers:Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token
+	access-control-allow-methods:GET,POST
+	access-control-allow-origin:*
+	content-length:0
+	content-type:application/json
+	date:Sun, 07 May 2017 04:08:17 GMT
+	status:200
+	via:1.1 cac0807f4e1bdd7cf57c08992aa341a5.cloudfront.net (CloudFront)
+	x-amz-cf-id:owAkRIPH2NxIOTkRZY6nnEyyuk6BMWtlxIuxU9bh-UHo75k6k6JEHA==
+	x-amzn-requestid:cc89ee1d-32da-11e7-b80b-d5ee3d14c01d
+	x-cache:Miss from cloudfront
+
+	```
+	</p></details>
 ---
 ### C. API Gateway authorization using IAM Authorization
 1.	**Click on a location**
