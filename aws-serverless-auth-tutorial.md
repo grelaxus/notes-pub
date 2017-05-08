@@ -477,13 +477,80 @@ Interact with the mobile app, and gain insights by viewing the behind-the-scenes
 	- *For this IAM Authorization request, which HTTP headers were sent?*
 	- *How are the HTTP headers sent for IAM Authorization requests different than those sent for User Pool Authorizer requests?*
 	- *Note that for IAM Authorization requests, a signature ("SigV4 signature") is calculated and sent as HTTP request headers. Note that User Pool Authorizer requests do not make use of any signatures.*
+	<details><summary>HTTP headers</summary><p>
+
+	```http
+	GET https://qyt4c7jmsd.execute-api.us-east-1.amazonaws.com/development/locations/03cb41b0-32d3-11e7-a1c8-7994ba5037c2/resources 
+	Headers: 
+		0: {"authorization" => "AWS4-HMAC-SHA256 Credential=ASIAIUDVGYA37YIW2YQQ/20170507/us-east-1/execute-api/aws4_request, SignedHeaders=accept;content-type;host;x-amz-date, Signature=8a9caed90dee588215d282c5361722d0c2279777888385ceea89b78c44f832de"}
+		1: {"accept" => "application/json"}
+		2: {"content-type" => "application/json"}
+		3: {"x-amz-date" => "20170507T042235Z"}
+		4: {"x-amz-security-token" => "AgoGb3JpZ_shortcut_jHc+de9kgsfwsNds8DXwe+6OuEJVE8wwi8K6yAU="}
+
+	```
+	</p></details>
 1.	**Select a resource (desk or conference room). Book one of the available timeslots.**
 	- *Which HTTP method (GET/POST/PUT/DELETE) was called?*
 	- *For this IAM Authorization request, which HTTP headers were sent?*
 	- *Note that with IAM Authorization signing (aka "SigV4 signing"), the request URI, request body, and HTTP method are all used to calculate the signature.*
+	<details><summary>List available bookings</summary><p>
+
+	```http
+	Resource Availability  
+	spacefinder-api.service.ts:62 IAM Authorization Request:
+	GET https://qyt4c7jmsd.execute-api.us-east-1.amazonaws.com/development/location…-a1c8-7994ba5037c2/resources/03d52cc0-32d3-11e7-a1c8-7994ba5037c2/bookings 
+	Headers: Map {
+		"authorization" => ["AWS4-HMAC-SHA256 Credential=ASIAIRZ42PWU7HBD63QA/20170507/us-east-1/execute-api/aws4_request, SignedHeaders=accept;content-type;host;x-amz-date, Signature=e49e66088285d1f6c8260fbfd08786fd50c406f4cc72a856cb1bc3287b4774f5"], 
+		"accept" => ["application/json"], 
+		"content-type" => ["application/json"], 
+		"x-amz-date" => ["20170507T043841Z"], 
+		"x-amz-security-token" => ["AgoGb3JpZ2luEBAaCXVzLWVhc3QtMSKAApvG0ZpyeSn9srQkCs…LvozKxonYnqv8DtJS/HLS8wNeAgQZeGRehG51E8Mw0cm6yAU="]}
+
+	```
+	</p></details>
+
+	<details><summary>Book a space</summary><p>
+
+	```http
+	IAM Authorization Request:
+	POST https://qyt4c7jmsd.execute-api.us-east-1.amazonaws.com/development/users/us-east-1:be1369a9-8f73-4670-84bf-90e3c4310759/bookings 
+	Headers: Map {
+			"authorization" => ["AWS4-HMAC-SHA256 Credential=ASIAIRZ42PWU7HBD63QA/20170507/us-east-1/execute-api/aws4_request, SignedHeaders=accept;content-type;host;x-amz-date, Signature=920796271b4bafb711e6f523002671ce48317e747e7e19cb2ecc66df26ff43ba"], 
+			"accept" => ["application/json"], 
+			"content-type" => ["application/json"], 
+			"x-amz-date" => ["20170507T044306Z"], 
+			"x-amz-security-token" => ["AgoGb3JpZ2luEBAaCXVzLWVhc3QtMSKAApvG0ZpyeSn9srQkCs…LvozKxonYnqv8DtJS/HLS8wNeAgQZeGRehG51E8Mw0cm6yAU="]} 
+
+	Body: {"locationId":"03cb41b0-32d3-11e7-a1c8-7994ba5037c2","locationName":"Encore","resourceId":"03d52cc0-32d3-11e7-a1c8-7994ba5037c2","resourceName":"Desk 1","resourceDescription":"Comfortable desk","startTimeIsoTimestamp":"2017-05-06T06:00:00.000Z","startTimeEpochTime":1494050400000,"endTimeIsoTimestamp":"2017-05-06T07:00:00.000Z","endTimeEpochTime":1494054000000,"timeslot":"6am - 7am","userId":"us-east-1:be1369a9-8f73-4670-84bf-90e3c4310759","userFirstName":"test","userLastName":"user"}
+
+	```
+	</p></details>
 1. **Browse to "Bookings" tab, and cancel the booking you just made.**
 	- *Which HTTP method (GET/POST/PUT/DELETE) was called?*
+	<details><summary>List My Bookings</summary><p>
 
+	```http
+	My Bookings  
+	spacefinder-api.service.ts:62 IAM Authorization Request:
+	GET https://qyt4c7jmsd.execute-api.us-east-1.amazonaws.com/development/users/us-east-1:be1369a9-8f73-4670-84bf-90e3c4310759/bookings 
+	Headers: 
+	Map {"authorization" => ["AWS4-HMAC-SHA256 Credential=ASIAJF446JAEPTR42IQQ/20170507/us-east-1/execute-api/aws4_request, SignedHeaders=accept;content-type;host;x-amz-date, Signature=c6a4b4aa4fc9ae38459685bd0cf9dd407d66a11c43840a9c2b6d8acb39c74b8f"], "accept" => ["application/json"], "content-type" => ["application/json"], "x-amz-date" => ["20170507T044558Z"], "x-amz-security-token" => ["AgoGb3JpZ2luEBEaCXVzLWVhc3QtMS_shortcut_iLTYxAib0Hzh3YoaxNLWvEwhs26yAU="]}
+
+
+	```
+	</p></details>
+
+	<details><summary>Cancel Booking</summary><p>
+
+	```http
+
+	IAM Authorization Request:
+	DELETE https://qyt4c7jmsd.execute-api.us-east-1.amazonaws.com/development/users/us…-8f73-4670-84bf-90e3c4310759/bookings/aac459a0-32df-11e7-87d4-6d0e492cccb7 
+	Headers: Map {"authorization" => ["AWS4-HMAC-SHA256 Credential=ASIAJF446JAEPTR42IQQ/2…38abd4e41431ce0187f9436b9425f0bb887b6c770d4d57a93"], "accept" => ["application/json"], "content-type" => ["application/json"], "x-amz-date" => ["20170507T045257Z"], "x-amz-security-token" => ["AgoGb3JpZ2luEBEaCXVzLWVhc3QtMSKAAjZS5OQzDCMqbUm5Xd…bKc7Svjy0wuXZjYxoiiLTYxAib0Hzh3YoaxNLWvEwhs26yAU="]}
+
+	```
+	</p></details>
 ---
 
 ### D. S3 authorization using IAM Authorization
