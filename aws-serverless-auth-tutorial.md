@@ -1023,7 +1023,57 @@ Interact with the mobile app, and gain insights by viewing the behind-the-scenes
     - *Which calls are using Cognito User Pools vs Cognito Federated Identities?*
     - *What types of API calls are needed to get AWS credentials?*
     - *When we sign out a user, how do we ensure that Cognito fully signs-out the user?*
+	<details><summary>getAwsCredentials</summary><p>
 
+	```js
+	public static getAwsCredentials(): Promise<void> {
+	    // TODO: Integrate this method as needed into the overall module
+	    let logins = {};
+
+	    let promise: Promise<void> = new Promise<void>((resolve, reject) => {
+	      // Check if user session exists
+	      CognitoUtil.getCognitoUser().getSession((err: Error, result: any) => {
+		if (err) {
+		  reject(err);
+		  return;
+		}
+
+
+		logins['cognito-idp.' + CognitoUtil.getRegion() + '.amazonaws.com/' + CognitoUtil.getUserPoolId()] = result.getIdToken().getJwtToken();
+
+		// Add the User's Id token to the Cognito credentials login map
+		AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+		  IdentityPoolId: CognitoUtil.getIdentityPoolId(),
+		  Logins: logins
+		});
+
+		// Call refresh method to authenticate user and get new temp AWS credentials
+		if (AWS.config.credentials.needsRefresh()) {
+		  AWS.config.credentials.clearCachedId();
+		  AWS.config.credentials.get((err) => {
+		    if (err) {
+		      reject(err);
+		      return;
+		    }
+		    resolve();
+		  });
+		} else {
+		  AWS.config.credentials.get((err) => {
+		    if (err) {
+		      console.error(err);
+		      reject(err);
+		      return;
+		    }
+		    resolve();
+		  });
+		}
+	      });
+	    });
+	    return promise;
+	  }
+	}
+	```
+	</p></details>
 ---
 
 # CLEANUP (1 minute)
