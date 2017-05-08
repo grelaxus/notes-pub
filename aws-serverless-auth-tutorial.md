@@ -43,6 +43,135 @@ Setup is quick and easy. You'll provision an EC2 instance, and run the pre-built
 		docker run --rm -it -p 80:8100 awsdevops/aws-serverless-auth-reference-app
 
 	> Troubleshooting: If you encounter a error saying “Bind for 0.0.0.0:80 failed: port is already allocated”, try: `sudo service docker restart`
+	
+
+	<details><summary>Docker container launching log</summary><p>
+	
+	```sh
+	[Docker container (aws-serverless-auth-reference-app): /home/aws-serverless-
+	auth-reference-app/api]  gulp deploy
+	[03:01:16] Using gulpfile /home/aws-serverless-auth-reference-app/api/gulpfile.js
+	[03:01:16] Starting 'deploy'...
+	[03:01:16] Starting 'create_cloudformation_stack'...
+	[2017-05-07T03:01:16.837Z]  INFO: spacefinder/190 on 92b9ce9f42b8: Creating CloudFormation stack...
+	[2017-05-07T03:01:17.282Z]  INFO: spacefinder/190 on 92b9ce9f42b8: Successfully invoked the CloudFormation stack spacefinder-api-development-stack
+	[2017-05-07T03:01:17.373Z]  INFO: spacefinder/190 on 92b9ce9f42b8: Waiting for stack mutation. This may take some time - CREATE_IN_PROGRESS
+	[2017-05-07T03:01:22.441Z]  INFO: spacefinder/190 on 92b9ce9f42b8: Waiting for stack mutation. This may take some time - CREATE_IN_PROGRESS
+	[2017-05-07T03:01:27.494Z]  INFO: spacefinder/190 on 92b9ce9f42b8: Waiting for stack mutation. This may take some time - CREATE_IN_PROGRESS
+	[2017-05-07T03:01:32.562Z]  INFO: spacefinder/190 on 92b9ce9f42b8: Waiting for stack mutation. This may take some time - CREATE_IN_PROGRESS
+	[2017-05-07T03:01:37.621Z]  INFO: spacefinder/190 on 92b9ce9f42b8: Waiting for stack mutation. This may take some time - CREATE_IN_PROGRESS
+	[2017-05-07T03:01:42.708Z]  INFO: spacefinder/190 on 92b9ce9f42b8: Waiting for stack mutation. This may take some time - CREATE_IN_PROGRESS
+	[2017-05-07T03:01:47.802Z]  INFO: spacefinder/190 on 92b9ce9f42b8: Waiting for stack mutation. This may take some time - CREATE_IN_PROGRESS
+	[2017-05-07T03:01:52.859Z]  INFO: spacefinder/190 on 92b9ce9f42b8: Waiting for stack mutation. This may take some time - CREATE_IN_PROGRESS
+	[2017-05-07T03:01:57.907Z]  INFO: spacefinder/190 on 92b9ce9f42b8: Waiting for stack mutation. This may take some time - CREATE_IN_PROGRESS
+	[2017-05-07T03:02:03.005Z]  INFO: spacefinder/190 on 92b9ce9f42b8: Stack operation completed
+	[03:02:03] Finished 'create_cloudformation_stack' after 46 s
+	[03:02:03] Starting 'create_dynamodb_tables'...
+	[2017-05-07T03:02:03.009Z]  INFO: spacefinder/190 on 92b9ce9f42b8: Creating DynamoDB tables...
+	Table created: 'spacefinder-api-development-locations'
+	Table created: 'spacefinder-api-development-profiles'
+	Table created: 'spacefinder-api-development-bookings'
+	Table created: 'spacefinder-api-development-resources'
+	[03:02:03] Finished 'create_dynamodb_tables' after 187 ms
+	[03:02:03] Starting 'create_cognito_pools'...
+	[2017-05-07T03:02:03.195Z]  INFO: spacefinder/190 on 92b9ce9f42b8: Creating Cognito Identity and User Pools...
+	[2017-05-07T03:02:05.208Z]  INFO: spacefinder/190 on 92b9ce9f42b8: Created Cognito User Pool spacefinder-api-development-userPool
+	[2017-05-07T03:02:05.280Z]  INFO: spacefinder/190 on 92b9ce9f42b8: Created Cognito User Pool Client spacefinder-api-development-userPool-client
+	[2017-05-07T03:02:05.602Z]  INFO: spacefinder/190 on 92b9ce9f42b8: Created Cognito Identity Pool spacefinder_api_development_identityPool
+	[2017-05-07T03:02:05.782Z]  INFO: spacefinder/190 on 92b9ce9f42b8: Setup Cognito Identity Pools user roles
+	[03:02:05] Finished 'create_cognito_pools' after 2.59 s
+	[03:02:05] Starting 'generate_client_config'...
+	[2017-05-07T03:02:05.783Z]  INFO: spacefinder/190 on 92b9ce9f42b8: Generating application client config...
+	[2017-05-07T03:02:06.042Z]  INFO: spacefinder/190 on 92b9ce9f42b8: 
+	    Generated Config:
+	     { REGION: 'us-east-1',
+	      PROFILE_IMAGES_S3_BUCKET: 'spacefinder-api-development-stack-userdatabucket-1517eusg4r1la',
+	      API_ENDPOINT: 'https://qyt4c7jmsd.execute-api.us-east-1.amazonaws.com/development',
+	      USER_POOL_ID: 'us-east-1_DvCJ5Zbm1',
+	      CLIENT_ID: '13399vooimes62v8ahlnr83gei',
+	      IDENTITY_POOL_ID: 'us-east-1:f2191387-075f-4d86-a79c-cd83766677b0' }
+	[2017-05-07T03:02:06.044Z]  INFO: spacefinder/190 on 92b9ce9f42b8: Successfully generated Lambda environment config
+	[2017-05-07T03:02:06.045Z]  INFO: spacefinder/190 on 92b9ce9f42b8: Successfully generated application config
+	[03:02:06] Finished 'generate_client_config' after 262 ms
+	[03:02:06] Starting 'deploy_lambda'...
+	[03:02:06] Starting 'create_lambda_zip'...
+	[2017-05-07T03:02:06.046Z]  INFO: spacefinder/190 on 92b9ce9f42b8: Creating Lambda zip archive...
+	[2017-05-07T03:02:06.047Z]  INFO: spacefinder/190 on 92b9ce9f42b8: Created 'dist' directory for Lambda zip
+	[2017-05-07T03:02:10.506Z]  INFO: spacefinder/190 on 92b9ce9f42b8: Lambda zip archive written to lambda-1.0.0.zip as 6949793 total bytes compressed
+	[03:02:10] Finished 'create_lambda_zip' after 4.46 s
+	[03:02:10] Starting 'upload_lambda_zip'...
+	[2017-05-07T03:02:10.511Z]  INFO: spacefinder/190 on 92b9ce9f42b8: Uploading Lambda zip archive to S3...
+	[2017-05-07T03:02:11.155Z]  INFO: spacefinder/190 on 92b9ce9f42b8: Successfully uploaded Lambda code to lambda-1.0.0.zip
+	[2017-05-07T03:02:11.156Z]  INFO: spacefinder/190 on 92b9ce9f42b8: Uploaded Lambda zip as s3://spacefinder-api-development-stack-lambdabucket-17omho37awvzi/lambda-1.0.0.zip
+	[03:02:11] Finished 'upload_lambda_zip' after 646 ms
+	[03:02:11] Starting 'create_lambda_functions'...
+	[2017-05-07T03:02:11.157Z]  INFO: spacefinder/190 on 92b9ce9f42b8: Creating Lambda functions from Swagger API definition...
+	[2017-05-07T03:02:11.991Z]  INFO: spacefinder/190 on 92b9ce9f42b8: Created/updated Lambda function spacefinder-api-development-bookings-ListByResourceId
+	[2017-05-07T03:02:12.098Z]  INFO: spacefinder/190 on 92b9ce9f42b8: Created/updated Lambda function spacefinder-api-development-bookings-Delete
+	[2017-05-07T03:02:12.156Z]  INFO: spacefinder/190 on 92b9ce9f42b8: Created/updated Lambda function spacefinder-api-development-bookings-Get
+	[2017-05-07T03:02:12.224Z]  INFO: spacefinder/190 on 92b9ce9f42b8: Created/updated Lambda function spacefinder-api-development-resources-List
+	[2017-05-07T03:02:12.316Z]  INFO: spacefinder/190 on 92b9ce9f42b8: Created/updated Lambda function spacefinder-api-development-bookings-Create
+	[2017-05-07T03:02:12.324Z]  INFO: spacefinder/190 on 92b9ce9f42b8: Created/updated Lambda function spacefinder-api-development-resources-Delete
+	[2017-05-07T03:02:12.339Z]  INFO: spacefinder/190 on 92b9ce9f42b8: Created/updated Lambda function spacefinder-api-development-resources-Get
+	[2017-05-07T03:02:12.362Z]  INFO: spacefinder/190 on 92b9ce9f42b8: Created/updated Lambda function spacefinder-api-development-locations-Get
+	[2017-05-07T03:02:12.388Z]  INFO: spacefinder/190 on 92b9ce9f42b8: Created/updated Lambda function spacefinder-api-development-bookings-ListByUserId
+	[2017-05-07T03:02:12.497Z]  INFO: spacefinder/190 on 92b9ce9f42b8: Created/updated Lambda function spacefinder-api-development-resources-Create
+	[2017-05-07T03:02:12.503Z]  INFO: spacefinder/190 on 92b9ce9f42b8: Created/updated Lambda function spacefinder-api-development-locations-Delete
+	[2017-05-07T03:02:12.520Z]  INFO: spacefinder/190 on 92b9ce9f42b8: Created/updated Lambda function spacefinder-api-development-locations-Create
+	[2017-05-07T03:02:12.926Z]  INFO: spacefinder/190 on 92b9ce9f42b8: Created/updated Lambda function spacefinder-api-development-locations-List
+	[2017-05-07T03:02:12.990Z]  INFO: spacefinder/190 on 92b9ce9f42b8: Permissions updated spacefinder-api-development-locations-List
+	[2017-05-07T03:02:13.005Z]  INFO: spacefinder/190 on 92b9ce9f42b8: Permissions updated spacefinder-api-development-resources-Delete
+	[2017-05-07T03:02:13.006Z]  INFO: spacefinder/190 on 92b9ce9f42b8: Permissions updated spacefinder-api-development-bookings-ListByUserId
+	[2017-05-07T03:02:13.007Z]  INFO: spacefinder/190 on 92b9ce9f42b8: Permissions updated spacefinder-api-development-resources-Get
+	[2017-05-07T03:02:13.007Z]  INFO: spacefinder/190 on 92b9ce9f42b8: Permissions updated spacefinder-api-development-bookings-ListByResourceId
+	[2017-05-07T03:02:13.010Z]  INFO: spacefinder/190 on 92b9ce9f42b8: Permissions updated spacefinder-api-development-resources-List
+	[2017-05-07T03:02:13.011Z]  INFO: spacefinder/190 on 92b9ce9f42b8: Permissions updated spacefinder-api-development-locations-Delete
+	[2017-05-07T03:02:13.012Z]  INFO: spacefinder/190 on 92b9ce9f42b8: Permissions updated spacefinder-api-development-locations-Create
+	[2017-05-07T03:02:13.012Z]  INFO: spacefinder/190 on 92b9ce9f42b8: Permissions updated spacefinder-api-development-bookings-Delete
+	[2017-05-07T03:02:13.015Z]  INFO: spacefinder/190 on 92b9ce9f42b8: Permissions updated spacefinder-api-development-bookings-Create
+	[2017-05-07T03:02:13.020Z]  INFO: spacefinder/190 on 92b9ce9f42b8: Permissions updated spacefinder-api-development-resources-Create
+	[2017-05-07T03:02:13.025Z]  INFO: spacefinder/190 on 92b9ce9f42b8: Permissions updated spacefinder-api-development-locations-Get
+	[2017-05-07T03:02:13.030Z]  INFO: spacefinder/190 on 92b9ce9f42b8: Permissions updated spacefinder-api-development-bookings-Get
+	[03:02:13] Finished 'create_lambda_functions' after 1.87 s
+	[03:02:13] Starting 'create_custom_authorizer'...
+	[2017-05-07T03:02:13.032Z]  INFO: spacefinder/190 on 92b9ce9f42b8: Creating Custom Authorizer Lambda function...
+	[2017-05-07T03:02:13.715Z]  INFO: spacefinder/190 on 92b9ce9f42b8: Created/updated Lambda function spacefinder-api-development-authorizer-Custom
+	[2017-05-07T03:02:13.740Z]  INFO: spacefinder/190 on 92b9ce9f42b8: Permissions updated spacefinder-api-development-authorizer-Custom
+	[03:02:13] Finished 'create_custom_authorizer' after 710 ms
+	[03:02:13] Finished 'deploy_lambda' after 7.7 s
+	[03:02:13] Starting 'deploy_api'...
+	[03:02:13] Starting 'import_api'...
+	[2017-05-07T03:02:13.742Z]  INFO: spacefinder/190 on 92b9ce9f42b8: Importing Swagger API definition into API Gateway...
+	[03:02:13] Finished 'import_api' after 37 ms
+	[03:02:13] Starting 'sleep'...
+	[2017-05-07T03:02:13.779Z]  INFO: spacefinder/190 on 92b9ce9f42b8: Sleeping for 5000 milliseconds
+	[2017-05-07T03:02:14.861Z]  INFO: spacefinder/190 on 92b9ce9f42b8: API imported successfully
+	[03:02:18] Finished 'sleep' after 5.01 s
+	[03:02:18] Starting 'create_api_stage'...
+	[2017-05-07T03:02:18.785Z]  INFO: spacefinder/190 on 92b9ce9f42b8: Creating API stage deployment...
+	[2017-05-07T03:02:19.922Z]  INFO: spacefinder/190 on 92b9ce9f42b8: API deployment created successfully
+	[03:02:19] Finished 'create_api_stage' after 1.14 s
+	[03:02:19] Finished 'deploy_api' after 6.18 s
+	[03:02:19] Starting 'generate_sample_users'...
+	[2017-05-07T03:02:19.924Z]  INFO: spacefinder/190 on 92b9ce9f42b8: Generating sample users
+	[03:02:19] Finished 'generate_sample_users' after 54 ms
+	[03:02:19] Starting 'generate_sample_groups'...
+	[2017-05-07T03:02:19.978Z]  INFO: spacefinder/190 on 92b9ce9f42b8: Generating sample user groups..
+	[2017-05-07T03:02:20.066Z]  INFO: spacefinder/190 on 92b9ce9f42b8: Incoming request to crate group adminGroup
+	[2017-05-07T03:02:20.077Z]  INFO: spacefinder/190 on 92b9ce9f42b8: Incoming request to crate group clientGroup
+	[03:02:20] Finished 'generate_sample_groups' after 101 ms
+	[03:02:20] Starting 'sleep'...
+	[2017-05-07T03:02:20.080Z]  INFO: spacefinder/190 on 92b9ce9f42b8: Sleeping for 5000 milliseconds
+	[03:02:25] Finished 'sleep' after 5.01 s
+	[03:02:25] Starting 'assign_users_to_cognito_user_groups'...
+	[2017-05-07T03:02:25.085Z]  INFO: spacefinder/190 on 92b9ce9f42b8: Assigning users to groups...
+	[2017-05-07T03:02:25.090Z]  INFO: spacefinder/190 on 92b9ce9f42b8: 2
+	[03:02:25] Finished 'assign_users_to_cognito_user_groups' after 69 ms
+	[03:02:25] Finished 'deploy' after 1.13 min
+
+	```
+	</p></details>
+
 
 1. **Configure the AWS credentials** to be used while inside the Docker container. Use the AWS credentials (AWS Access Key and AWS Secret Access Key ID) associated with the highly-privileged IAM user that was referenced in step #1.
 
