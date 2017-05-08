@@ -821,9 +821,48 @@ Interact with the mobile app, and gain insights by viewing the behind-the-scenes
 1.	**Return to the browser tab/window showing the API Gateway console.**
 1.  **Navigate to the 'spacefinder-userPool-authorizer' detail screen. In the righthand pane, scroll down to the "Test your authorizer" section. Paste in the admin user's identity token into the "Identity token" textfield, and click "Test".**
     - *Assuming you pasted a valid token, you should see your decoded identity token in the "Claims" textbox. This signifies that you would pass this yes/no authorization check.*
+    <details><summary>Test result</summary><p>
+
+	```json
+	{
+	  "sub": "0dd6df5d-cc37-4c07-a144-fd67d68637fc",
+	  "cognito:groups": "adminGroup",
+	  "cognito:preferred_role": "arn:aws:iam::989972760655:role/spacefinder-api-developme-CognitoIdentityPoolAuthA-90VJT18QBP3L",
+	  "iss": "https://cognito-idp.us-east-1.amazonaws.com/us-east-1_DvCJ5Zbm1",
+	  "cognito:username": "admin1",
+	  "given_name": "Admin",
+	  "cognito:roles": "arn:aws:iam::989972760655:role/spacefinder-api-developme-CognitoIdentityPoolAuthA-90VJT18QBP3L",
+	  "aud": "13399vooimes62v8ahlnr83gei",
+	  "token_use": "id",
+	  "auth_time": "1494136038",
+	  "exp": "Sun May 07 06:47:18 UTC 2017",
+	  "iat": "Sun May 07 05:47:18 UTC 2017",
+	  "family_name": "User",
+	  "email": "admin@example.com"
+	}
+	```
+	</p></details>
 1.  **While still on the "Authorizers" screen, click on 'spacefinder-custom-authorizer' to view the details for that authorizer.**
 1.  **In the righthand pane, scroll down to the "Test your authorizer" section. Paste in the admin user's identity token into the "Identity token" textfield, and click "Test".**
     - *You should see an IAM Policy with permissions to Allow access to the API operations. Notice that the explicity Deny statements (when we tested earlier using the identity token associated with a non-Admin) are no longer present in the IAM Policy.*
+	</p></details>
+	<details><summary>Test result</summary><p>
+
+	```json
+	{
+	  "Version": "2012-10-17",
+	  "Statement": [
+	    {
+	      "Action": "execute-api:Invoke",
+	      "Effect": "Allow",
+	      "Resource": [
+		"arn:aws:execute-api:us-east-1:989972760655:qyt4c7jmsd/null/*/*"
+	      ]
+	    }
+	  ]
+	}
+	```
+	</p></details>
 
 ---
 
@@ -853,9 +892,29 @@ Interact with the mobile app, and gain insights by viewing the behind-the-scenes
 1.	**Click on the "adminGroup" to review the group details for standard users**
     - *Which IAM role is assigned to this group?*
     - *Can the IAM role and precedence settings be edited?*
+    <details><summary>adminGroup</summary><p>
+
+	```sh
+	Description	Cognito user group for administrators
+	Role ARN	arn:aws:iam::989972760655:role/spacefinder-api-developme-CognitoIdentityPoolAuthA-90VJT18QBP3L
+	Precedence	0
+	Updated	May 7, 2017 3:02:20 AM
+	Created	May 7, 2017 3:02:20 AM
+	```
+	</p></details>
 1.	**Click on the "Groups" breadcrumb in the right-hand panel to go back**
 1.	**Click on the "clientGroup" to review its settings**
     - *Is a different IAM role assigned to this group than the "adminGroup?"*
+    <details><summary>clientGroup</summary><p>
+
+	```sh
+	Description	Cognito user group for spacefinder users
+	Role ARN	arn:aws:iam::989972760655:role/spacefinder-api-developme-CognitoIdentityPoolAuthS-DODIL6BLNZUT
+	Precedence	1
+	Updated	May 7, 2017 3:02:20 AM
+	Created	May 7, 2017 3:02:20 AM
+	```
+	</p></details>
 1.	**Click on Attributes in the left-hand panel**
     - *Are there any required attributes for new users in this user group?*
     - *Are there any custom attributes for users in this user group?*
@@ -892,12 +951,69 @@ Interact with the mobile app, and gain insights by viewing the behind-the-scenes
 1.	**Click "Roles"**
 1.	**Paste the copied value into the filter box**
     - *If the next screen showing the role details doesn’t automatically load, highlight the desired IAM role by clicking on it.*
+    
 1.	**Scroll down and click “Edit Policy” for the in-line policy on the role**
 1.	**You should now see the effective IAM permissions for this policy**
     - *IAM policy variables specific to Cognito are leveraged to ensure a user can only create or delete resource bookings for him or herself, and not using other user’s IDs in the URI path.*
     - *Additionally, uploading of profile pictures to S3 is allowed, but only to the user’s particular path of their unique user ID within the S3 bucket.*
     - *If you were to look up the effective in-line IAM policy for the administrators role, you would see that these restrictions do not exist for administrators.*
+	<details><summary>CognitoIdentityPoolAuthStandardRole policy</summary><p>
 
+	```json
+	{
+	    "Version": "2012-10-17",
+	    "Statement": [
+		{
+		    "Action": "execute-api:Invoke",
+		    "Resource": [
+			"arn:aws:execute-api:us-east-1:989972760655:qyt4c7jmsd/*/*/locations",
+			"arn:aws:execute-api:us-east-1:989972760655:qyt4c7jmsd/*/*/locations/*",
+			"arn:aws:execute-api:us-east-1:989972760655:qyt4c7jmsd/*/*/users/${cognito-identity.amazonaws.com:sub}",
+			"arn:aws:execute-api:us-east-1:989972760655:qyt4c7jmsd/*/*/users/${cognito-identity.amazonaws.com:sub}/*"
+		    ],
+		    "Effect": "Allow"
+		},
+		{
+		    "Action": "execute-api:Invoke",
+		    "Resource": [
+			"arn:aws:execute-api:us-east-1:989972760655:qyt4c7jmsd/*/DELETE/locations",
+			"arn:aws:execute-api:us-east-1:989972760655:qyt4c7jmsd/*/DELETE/locations/*",
+			"arn:aws:execute-api:us-east-1:989972760655:qyt4c7jmsd/*/POST/locations",
+			"arn:aws:execute-api:us-east-1:989972760655:qyt4c7jmsd/*/POST/locations/*"
+		    ],
+		    "Effect": "Deny"
+		},
+		{
+		    "Action": [
+			"s3:PutObject"
+		    ],
+		    "Resource": "arn:aws:s3:::spacefinder-api-development-stack-userdatabucket-1517eusg4r1la/${cognito-identity.amazonaws.com:sub}/*",
+		    "Effect": "Allow"
+		}
+	    ]
+	}
+	```
+	</p></details>
+	<details><summary>Outputs in Cloud Formation</summary><p>
+
+	```sh
+	Outputs in Cloud Formation:
+	Key	Value	Description	Export Name
+	CognitoIdentityPoolUnAuthRoleArn	arn:aws:iam::989972760655:role/spacefinder-api-developme-CognitoIdentityPoolUnAut-P1N914OVULXD	ARN of the Cognito Identity Pool unauthenticated user role	
+	CognitoIdentityPoolAuthStandardRoleArn	arn:aws:iam::989972760655:role/spacefinder-api-developme-CognitoIdentityPoolAuthS-DODIL6BLNZUT	ARN of the Cognito Identity Pool authenticated user role	
+	ApiGatewayRestApi	qyt4c7jmsd	Name of the ApiGatewayRestApi	
+	AwsRegion	us-east-1	Region of the AWS deployment	
+	LambdaExecutionRoleArn	arn:aws:iam::989972760655:role/spacefinder-api-development-st-LambdaExecutionRole-EKSHQDFB9U9	ARN of the Lambda execution role	
+	CognitoIdentityPoolAuthAdminRole	spacefinder-api-developme-CognitoIdentityPoolAuthA-90VJT18QBP3L	Name of the Cognito Identity Pool authenticated user role	
+	AwsAccountId	989972760655	Account ID of the AWS account	
+	CognitoIdentityPoolUnAuthRole	spacefinder-api-developme-CognitoIdentityPoolUnAut-P1N914OVULXD	Name of the Cognito Identity Pool unauthenticated user role	
+	CognitoIdentityPoolAuthStandardRole	spacefinder-api-developme-CognitoIdentityPoolAuthS-DODIL6BLNZUT	Name of the Cognito Identity Pool authenticated user role	
+	LambdaBucket	spacefinder-api-development-stack-lambdabucket-17omho37awvzi	Name of the private S3 bucket used to store zipped Lambda function code	
+	CognitoIdentityPoolAuthAdminRoleArn	arn:aws:iam::989972760655:role/spacefinder-api-developme-CognitoIdentityPoolAuthA-90VJT18QBP3L	ARN of the Cognito Identity Pool authenticated user role	
+	UserDataBucket	spacefinder-api-development-stack-userdatabucket-1517eusg4r1la	Name of the S3 bucket used to store application-specific user data	
+	LambdaExecutionRole	spacefinder-api-development-st-LambdaExecutionRole-EKSHQDFB9U9	Name of the Lambda execution role
+	```
+	</p></details>
 ---
 
 ### O. Exploring the client-side code to interact with Cognito
