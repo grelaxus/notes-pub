@@ -571,14 +571,126 @@ Interact with the mobile app, and gain insights by viewing the behind-the-scenes
 	- *As expected, your API request is rejected because you don't have permissions to perform this API backend operation (because your account is not in the administrators group).*
 	- *Bonus question: The HTTP response body will explain why your API request was denied. What is the HTTP response body? (Hint: Look at the Developer Tool's Network tab)*
 
+	<details><summary>Add location</summary><p>
+
+	```http
+	Request URL:https://qyt4c7jmsd.execute-api.us-east-1.amazonaws.com/development/locations
+	Request Method:POST
+	Status Code:403 
+	Remote Address:54.192.139.78:443
+	Response Headers
+	content-length:293
+	content-type:application/json
+	date:Sun, 07 May 2017 05:07:11 GMT
+	status:403
+	via:1.1 5534399806e3c9343716ffe6cbeb2f01.cloudfront.net (CloudFront)
+	x-amz-cf-id:ZVrrn9fZCambD-cF7JjauvG79v_IOMdHo0yueXT6p_eavugoYtTRnQ==
+	x-amzn-errortype:AccessDeniedException
+	x-amzn-requestid:06d61e4d-32e3-11e7-bbc2-1dc322dd78e9
+	x-cache:Error from cloudfront
+	Request Headers
+	:authority:qyt4c7jmsd.execute-api.us-east-1.amazonaws.com
+	:method:POST
+	:path:/development/locations
+	:scheme:https
+	accept:application/json
+	accept-encoding:gzip, deflate, br
+	accept-language:en-US,en;q=0.8
+	authorization:AWS4-HMAC-SHA256 Credential=ASIAIOUN5OIMCSW3XJ5Q/20170507/us-east-1/execute-api/aws4_request, SignedHeaders=accept;content-type;host;x-amz-date, Signature=dd464bfd1a89e755260a8ae6cbfc1139c3e7b8e185c00ffaf53ad7118c22b5d6
+	content-length:119
+	content-type:application/json
+	origin:http://ec2-54-172-240-121.compute-1.amazonaws.com
+	referer:http://ec2-54-172-240-121.compute-1.amazonaws.com/
+	user-agent:Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/56.0.2924.76 Chrome/56.0.2924.76 Safari/537.36
+	x-amz-date:20170507T050710Z
+	x-amz-security-token:AgoGb3JpZ2luEBEaCXVzLWVhc3QtMSKAAgPYQuEZepjuPKs_shortcut_WCx84KwBQaBfzQuEu/CYd3xwVsMwwda6yAU=
+
+	Request Payload
+	view source
+	{name: "qq", description: "qq",…}
+	description:"qq"
+	imageUrl:"https://s3.amazonaws.com/spacefinder-public-image-repository/building.png"
+	name:"qq"
+
+	```
+	</p></details>
+
+	<details><summary>Response</summary><p>
+
+	```http
+	Response:
+	{"Message":"User: arn:aws:sts::989972760655:assumed-role/spacefinder-api-developme-CognitoIdentityPoolAuthS-DODIL6BLNZUT/CognitoIdentityCredentials is not authorized to perform: execute-api:Invoke on resource: arn:aws:execute-api:us-east-1:********0655:qyt4c7jmsd/development/POST/locations"}
+
+	```
+	</p></details>
 ---
 
 ### F. Fine-grained access control using Custom Authorizers
 
 1. **Click on the arrow located in the upper left of the app (next to the `Add a Location` title), to return to the previous screen.**
+	<details><summary>Locations</summary><p>
+
+	```http
+	  Locations  
+	spacefinder-api.service.ts:81 User Pools Authorizer Request:
+	GET https://qyt4c7jmsd.execute-api.us-east-1.amazonaws.com/development/locations 
+	Headers: 
+	{"authorization" => "eyJraWQiOiJpK29xRmhHKzJcL_shortcut_iLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiI2NTI3YTU1Z_shortcut_WwiOiJ2aWN0b3JzZmJhQGdtYWlsLmNvbSJ9.FZDcSmBpNSkhXL7-Gl_shortcut_HIRBHicbxQoKd0TdiurGDfDecDKiuYgim7UgIfUA0Dn1h8smg"}
+
+	```
+	</p></details>
+	<details><summary>Response</summary><p>
+
+	```http
+
+	Response:
+	{"message":"Identity token has expired"}
+	```
+	</p></details>
+	<details><summary>Sign-Out -> Sign-In (token expired)</summary><p>
+
+	```http
+	Sign Out  
+	logger.service.ts:13   Sign-In  
+	account-management.service.ts:317 Authenticating user testuser
+	account-management.service.ts:331 Cognito User Pools Identity Token:  eyJraWQiOiJpK29xRmhHKzJcL_shortcut_iLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiI2NTI3YTU1Z_shortcut_WwiOiJ2aWN0b3JzZmJhQGdtYWlsLmNvbSJ9.DL9bq2T6mX_shortcut_ezYQtnj4PVdAU7N629VTinH7SXTbA
+	account-management.service.ts:333 Cognito User Pools Access Token:  eyJraWQiOiJ2YWNPOGNHbnpiT_shortcut_iLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiI2NTI3YTU1Z_shortcut_2VpIiwidXNlcm5hbWUiOiJ0ZXN0dXNlciJ9.Tc2aL3FGgR_shortcut_cIGtiXB-67Ql3oorOY9nJpVT40Olg
+	account-management.service.ts:335 Cognito User Pools Refresh Token:  
+	eyJjdHkiOiJKV1QiLCJlbmMiO_shortcut_WxnIjoiUlNBLU9BRVAifQ.u8lMapLOiZ7vXE-_BaBsg_shortcut_QjMNwFe5W42wuHCUZFLYEnfTwmoXQ.mOKNTQ0SVhAXD27b.Tj3u_shortcut_...very_lengthy_AxB7-nqmQEo3SWf84RYgH2-w7ap9Tc.laATfig17jCU2WxGxqdDfw
+	account-management.service.ts:355 Cognito User Pools User Groups :testuser belongs to group clientGroup
+	account-management.service.ts:545 Cognito User Pools User Attributes:  Object {sub: "6527a55d-5498-428b-a997-8213981c70cd", email_verified: "true", given_name: "test", family_name: "user", email: "victorsfba@gmail.com"}
+	account-management.service.ts:365 Cognito Identity ID:  us-east-1:be1369a9-8f73-4670-84bf-90e3c4310759
+	account-management.service.ts:367 AWS Access Key ID:  ASIAILYWSQRMGOARZ5XQ
+	account-management.service.ts:369 AWS Secret Access Key:  pwovW2nVu1Hbs5TH33ujoZABqq5zaYaj1wbBwJai
+	account-management.service.ts:371 AWS Session Token:  AgoGb3JpZ2luEBEaCXVzLWVhc3QtMSKAAoH9N_shortcut_YpWD4wq9y6yAU=
+	```
+	</p></details>
+	<details><summary>Locations</summary><p>
+
+	```http
+	Locations  
+	spacefinder-api.service.ts:81 User Pools Authorizer Request:
+	GET https://qyt4c7jmsd.execute-api.us-east-1.amazonaws.com/development/locations 
+	Headers: Map {"authorization" => ["eyJraWQiOiJpK29xRmhHKzJcL0RtNXBVUWNMbGE3bW5aSWRxRG…9rheK5o25NA6Lu-NWNReezYQtnj4PVdAU7N629VTinH7SXTbA"]} //identity token
+
+	```
+	</p></details>
+
 1. **Click on "Load locations with Auth", and click on a location of your choice.**
 1. **When viewing the resources for the location, click the "Delete" button next to one of the conference rooms/desks. Click "OK" to confirm when the confirmation dialog pops up.**
     - *An API Gateway Custom Authorizer is associated with this API operation. The Custom Authorizer logic evaluates the user's identity token and corresponding Cognito User Pools group memebership. Since your user isn't in the administrators group, the Custom Authorizer returns an IAM policy that effectively denies the user from performing this API operation.*
+	<details><summary>Trying to delete location</summary><p>
+
+	```http
+	Custom Authorizer Request:
+	DELETE https://qyt4c7jmsd.execute-api.us-east-1.amazonaws.com/development/locations/03cb41b0-32d3-11e7-a1c8-7994ba5037c2 
+	Headers: Map {"authorization" => ["eyJraWQiOiJpK29xRmhHKzJcL0RtNXBVUWNMbGE3bW5aSWRxRG_shortcut_9rheK5o25NA6Lu-NWNReezYQtnj4PVdAU7N629VTinH7SXTbA"]}
+
+	Response:
+	{"Message":"User is not authorized to access this resource"}
+
+	```
+	</p></details>
 
 ---
     
