@@ -883,6 +883,94 @@ Interact with the mobile app, and gain insights by viewing the behind-the-scenes
 	
 ---
 
+
+### KK. Other things in console
+	
+
+<details><summary>CognitoIdentityPoolAuthStandardPolicy</summary><p>
+
+```json
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Action": "execute-api:Invoke",
+            "Resource": [
+                "arn:aws:execute-api:us-east-1:989972760655:bui2h4chd5/*/*/locations",
+                "arn:aws:execute-api:us-east-1:989972760655:bui2h4chd5/*/*/locations/*",
+                "arn:aws:execute-api:us-east-1:989972760655:bui2h4chd5/*/*/users/${cognito-identity.amazonaws.com:sub}",
+                "arn:aws:execute-api:us-east-1:989972760655:bui2h4chd5/*/*/users/${cognito-identity.amazonaws.com:sub}/*"
+            ],
+            "Effect": "Allow"
+        },
+        {
+            "Action": "execute-api:Invoke",
+            "Resource": [
+                "arn:aws:execute-api:us-east-1:989972760655:bui2h4chd5/*/DELETE/locations",
+                "arn:aws:execute-api:us-east-1:989972760655:bui2h4chd5/*/DELETE/locations/*",
+                "arn:aws:execute-api:us-east-1:989972760655:bui2h4chd5/*/POST/locations",
+                "arn:aws:execute-api:us-east-1:989972760655:bui2h4chd5/*/POST/locations/*"
+            ],
+            "Effect": "Deny"
+        },
+        {
+            "Action": [
+                "s3:PutObject"
+            ],
+            "Resource": "arn:aws:s3:::spacefinder-api-development-stack-userdatabucket-13nd1e9ksak42/${cognito-identity.amazonaws.com:sub}/*",
+            "Effect": "Allow"
+        }
+    ]
+}
+```
+</p></details>
+
+<details><summary>CognitoIdentityPoolAuthAdminPolicy</summary><p>
+
+```json
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Action": "execute-api:Invoke",
+            "Resource": [
+                "arn:aws:execute-api:us-east-1:989972760655:bui2h4chd5/*/*/*"
+            ],
+            "Effect": "Allow"
+        },
+        {
+            "Action": [
+                "s3:*"
+            ],
+            "Resource": "arn:aws:s3:::spacefinder-api-development-stack-userdatabucket-13nd1e9ksak42/*",
+            "Effect": "Allow"
+        }
+    ]
+}
+```
+</p></details>
+
+<details><summary>LambdaExecutionPolicy</summary><p>
+
+```json
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Action": [
+                "dynamodb:*",
+                "logs:CreateLogGroup",
+                "logs:CreateLogStream",
+                "logs:PutLogEvents"
+            ],
+            "Resource": "*",
+            "Effect": "Allow"
+        }
+    ]
+}
+```
+</p></details>
+---
 ### L. Exploring the Cognito User Pools console
 
 1.	**Browse to the Cognito User Pools console**
