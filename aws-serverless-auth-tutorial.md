@@ -970,7 +970,9 @@ Interact with the mobile app, and gain insights by viewing the behind-the-scenes
 }
 ```
 </p></details>
+
 ---
+
 ### L. Exploring the Cognito User Pools console
 
 1.	**Browse to the Cognito User Pools console**
