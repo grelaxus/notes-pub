@@ -45,7 +45,22 @@ Setup is quick and easy. You'll provision an EC2 instance, and run the pre-built
 	> Troubleshooting: If you encounter a error saying “Bind for 0.0.0.0:80 failed: port is already allocated”, try: `sudo service docker restart`
 	
 
-	<details><summary>Docker container launching log</summary><p>
+	
+
+
+1. **Configure the AWS credentials** to be used while inside the Docker container. Use the AWS credentials (AWS Access Key and AWS Secret Access Key ID) associated with the highly-privileged IAM user that was referenced in step #1.
+
+		aws configure
+
+	> Just accept the defaults when it asks for region and output format. The app configuration file at `~/api/config.js` configures the resources to be provisioned in `us-east-1` by default. Also, AWS credentials are NOT persisted across Docker container runs, so if you exit and later re-run the Docker container, remember to run `aws configure` again.
+
+1. **Deploy the AWS resources into your account**
+
+		cd /home/aws-serverless-auth-reference-app/api
+		gulp deploy
+		gulp bootstrap
+		
+    <details><summary>gulp deploy log</summary><p>
 	
 	```sh
 	[Docker container (aws-serverless-auth-reference-app): /home/aws-serverless-
@@ -171,20 +186,7 @@ Setup is quick and easy. You'll provision an EC2 instance, and run the pre-built
 
 	```
 	</p></details>
-
-
-1. **Configure the AWS credentials** to be used while inside the Docker container. Use the AWS credentials (AWS Access Key and AWS Secret Access Key ID) associated with the highly-privileged IAM user that was referenced in step #1.
-
-		aws configure
-
-	> Just accept the defaults when it asks for region and output format. The app configuration file at `~/api/config.js` configures the resources to be provisioned in `us-east-1` by default. Also, AWS credentials are NOT persisted across Docker container runs, so if you exit and later re-run the Docker container, remember to run `aws configure` again.
-
-1. **Deploy the AWS resources into your account**
-
-		cd /home/aws-serverless-auth-reference-app/api
-		gulp deploy
-		gulp bootstrap
-    <details><summary>gulp deploy log</summary><p>
+    <details><summary>gulp bootstrap log</summary><p>
     
     ```sh
     [Docker container (aws-serverless-auth-reference-app): /home/aws-serverless-
