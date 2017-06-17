@@ -971,6 +971,30 @@ Interact with the mobile app, and gain insights by viewing the behind-the-scenes
 ```
 </p></details>
 
+spacefinder-api-development-authorizer-Custom -> Role: spacefinder-api-development-st-LambdaExecutionRole-1IO87ERIY4ZO8
+
+<details><summary>spacefinder-api-development-authorizer-Custom -> function policy</summary><p>
+
+```json
+{
+    "Version": "2012-10-17",
+    "Id": "default",
+    "Statement": [
+        {
+            "Sid": "apigateway-invoke-permissions",
+            "Effect": "Allow",
+            "Principal": {
+                "Service": "apigateway.amazonaws.com"
+            },
+            "Action": "lambda:InvokeFunction",
+            "Resource": "arn:aws:lambda:us-east-1:989972760655:function:spacefinder-api-development-authorizer-Custom"
+        }
+    ]
+}
+
+```
+</p></details>
+
 ---
 
 ### L. Exploring the Cognito User Pools console
