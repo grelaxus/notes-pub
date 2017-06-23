@@ -16,6 +16,13 @@ This lab demonstrates how to demo the SpaceFinder reference app, and help you un
 
 ---
 
+# Fast links
+
+GoTo:  
+[KK](#headKK)
+
+---
+
 # SETUP (5 minutes)
 
 Setup is quick and easy. You'll provision an EC2 instance, and run the pre-built SpaceFinder Docker container. Once your AWS credentials and configured and the AWS resources are deployed, you'll start the Ionic 2 server which will serve up the hybrid mobile app.
@@ -883,8 +890,7 @@ Interact with the mobile app, and gain insights by viewing the behind-the-scenes
 	
 ---
 
-
-### KK. Other things in console
+### <a id="headKK"></a> KK. Other things in console
 	
 
 <details><summary>CognitoIdentityPoolAuthStandardPolicy</summary><p>
