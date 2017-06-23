@@ -1012,13 +1012,13 @@ Existing role: spacefinder-api-development-st-LambdaExecutionRole-1N1L36TATXF2Y
 **spacefinder-api-development-bookings-Create**,  
 Add Booking,  
 Node.js 4.3, 6.6 MB  
-Handler: bookings.Create
+Handler: bookings.Create  
 Existing role: spacefinder-api-development-st-LambdaExecutionRole-1N1L36TATXF2Y
 
 **spacefinder-api-development-resources-Delete**,  
 Deletes a Resource,  
 Node.js 4.3, 6.6 MB  
-Handler: resources.Delete
+Handler: resources.Delete  
 Existing role: spacefinder-api-development-st-LambdaExecutionRole-1N1L36TATXF2Y
 
 **spacefinder-api-development-resources-Create**,  
