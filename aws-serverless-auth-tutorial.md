@@ -995,6 +995,82 @@ spacefinder-api-development-authorizer-Custom -> Role: spacefinder-api-developme
 ```
 </p></details>
 
+<details><summary>List of Lambdas</summary><p>
+
+**spacefinder-api-development-authorizer-Custom**,  
+Custom authorizer function for API Gateway to grant admin-only permissions,  
+Node.js 4.3, 6.6 MB  
+Handler: authorizer.Custom  
+Existing role: spacefinder-api-development-st-LambdaExecutionRole-1N1L36TATXF2Y
+
+**spacefinder-api-development-bookings-Create**,  
+Add Booking,  
+Node.js 4.3, 6.6 MB  
+Handler: bookings.Create
+Existing role: spacefinder-api-development-st-LambdaExecutionRole-1N1L36TATXF2Y
+
+**spacefinder-api-development-resources-Delete**,  
+Deletes a Resource,  
+Node.js 4.3, 6.6 MB  
+Handler: resources.Delete
+Existing role: spacefinder-api-development-st-LambdaExecutionRole-1N1L36TATXF2Y
+
+**spacefinder-api-development-resources-Create**,  
+Add Resource,  
+Node.js 4.3, 6.6 MB  
+Handler: resources.Create  
+Existing role: spacefinder-api-development-st-LambdaExecutionRole-1N1L36TATXF2Y
+
+**spacefinder-api-development-locations-Get**,  
+Returns a Location,  
+Node.js 4.3, 6.6 MB  
+Handler: locations.Get  
+Existing role: spacefinder-api-development-st-LambdaExecutionRole-1N1L36TATXF2Y  
+
+**spacefinder-api-development-locations-List**,  
+Returns List of 'Locations',  
+Node.js 4.3, 6.6 MB  
+Handler: locations.List  
+Existing role: spacefinder-api-development-st-LambdaExecutionRole-1N1L36TATXF2Y  
+
+**spacefinder-api-development-bookings-ListByUserId**,  
+Returns List of Bookings associated with a User,  
+Node.js 4.3, 6.6 MB  
+Handler: bookings.ListByUserId  
+Existing role: spacefinder-api-development-st-LambdaExecutionRole-1N1L36TATXF2Y
+
+**spacefinder-api-development-bookings-ListByResourceId**,  
+Returns List of Bookings associated with Resource,  
+Node.js 4.3, 6.6 MB  
+Handler: bookings.ListByResourceId  
+Existing role: spacefinder-api-development-st-LambdaExecutionRole-1N1L36TATXF2Y
+
+**spacefinder-api-development-resources-List**,
+Returns list of 'Resources',
+Node.js 4.3, 6.6 MB
+
+**spacefinder-api-development-bookings-Delete**,
+Delete booking,
+Node.js 4.3, 6.6 MB
+
+**spacefinder-api-development-locations-Delete**,
+Deletes a Location,
+Node.js 4.3, 6.6 MB
+
+**spacefinder-api-development-locations-Create**,
+Adds a Location,
+Node.js 4.3, 6.6 MB
+
+**spacefinder-api-development-bookings-Get**,
+Get booking,
+Node.js 4.3, 6.6 MB
+
+**spacefinder-api-development-bookings-Delete**,
+Delete booking,
+Node.js 4.3, 6.6 MB
+
+</p></details>
+
 ---
 
 ### L. Exploring the Cognito User Pools console
