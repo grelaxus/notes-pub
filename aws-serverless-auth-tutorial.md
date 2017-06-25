@@ -19,7 +19,7 @@ This lab demonstrates how to demo the SpaceFinder reference app, and help you un
 # Fast links
 
 GoTo:  
-[KK](#headKK)
+[KK](#headKK), [KKK](#headKKK)
 
 ---
 
@@ -1074,6 +1074,69 @@ Node.js 4.3, 6.6 MB
 **spacefinder-api-development-bookings-Delete**,
 Delete booking,
 Node.js 4.3, 6.6 MB
+
+</p></details>
+
+---
+
+### <a id="headKKK"></a> KKK. LOGS
+
+<details><summary>LOG: getting locations list spacefinder-api-development-locations-List</summary><p>
+
+```sh
+{ resource: '/locations',
+path: '/locations',
+httpMethod: 'GET',
+headers: 
+{ Accept: '*/*',
+'Accept-Encoding': 'gzip, deflate, sdch, br',
+'Accept-Language': 'en-US,en;q=0.8',
+Authorization: 'eyJraW...QyDU3dkPg',
+'CloudFront-Forwarded-Proto': 'https',
+'CloudFront-Is-Desktop-Viewer': 'true',
+'CloudFront-Is-Mobile-Viewer': 'false',
+'CloudFront-Is-SmartTV-Viewer': 'false',
+'CloudFront-Is-Tablet-Viewer': 'false',
+'CloudFront-Viewer-Country': 'US',
+Host: 'd0xlgh25f0.execute-api.us-east-1.amazonaws.com',
+origin: 'http://ec2-34-200-248-157.compute-1.amazonaws.com',
+Referer: 'http://ec2-34-200-248-157.compute-1.amazonaws.com/',
+'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromi...',
+Via: '2.0 7acf18...28f.cloudfront.net (CloudFront)',
+'X-Amz-Cf-Id': 'DsM...Uw==',
+'X-Amzn-Trace-Id': 'Root=1-594f065a-11dc482a566dee252bd3450d',
+'X-Forwarded-For': '173.IP, 216.IP2',
+'X-Forwarded-Port': '443',
+'X-Forwarded-Proto': 'https' },
+queryStringParameters: null,
+pathParameters: null,
+stageVariables: null,
+requestContext: 
+{ path: '/development/locations',
+accountId: 'account',
+resourceId: 'fijn42',
+stage: 'development',
+authorizer: { claims: [Object] },
+requestId: 'cea42e9f-59...482',
+identity: 
+{ cognitoIdentityPoolId: null,
+accountId: null,
+cognitoIdentityId: null,
+caller: null,
+apiKey: '',
+sourceIp: '173...',
+accessKey: null,
+cognitoAuthenticationType: null,
+cognitoAuthenticationProvider: null,
+userArn: null,
+userAgent: 'Mozilla/5.0 (X11; Linux x86_64) Apple...',
+user: null },
+resourcePath: '/locations',
+httpMethod: 'GET',
+apiId: 'd0xlgh25f0' },
+body: null,
+isBase64Encoded: false }
+```
 
 </p></details>
 
