@@ -1,3 +1,15 @@
+Docker attach 
+Don't use docker attach otherwise it will look like hang, see [here](https://stackoverflow.com/questions/35573698/why-does-docker-attach-hang)
+Instead use [following](https://askubuntu.com/questions/505506/how-to-get-bash-or-ssh-into-a-running-container-in-background-mode) command:
+
+```sh
+$ sudo docker exec -i -t 665b4a1e17b6 /bin/bash #by ID
+```
+or
+```sh
+$ sudo docker exec -i -t loving_heisenberg /bin/sh #by Name
+```
+
 List all Docker Images
 
 ```sh
