@@ -52,6 +52,23 @@ View the logs of a Running Docker Container
 docker logs <container name>
 ```
 
+View details on the state, e.g. "OOMKilled" which is true if you exceed the container memory limits and Docker kills your app.
+
+```sh
+docker inspect $container_id
+```
+Start docker events (in the background) to see whats going on with a failing container.
+
+```sh
+docker events
+```
+
+OR in background (see details [here](https://serverfault.com/questions/596994/how-can-i-debug-a-docker-container-initialization))
+
+```sh
+docker events&
+```
+
 Delete All Stopped Docker Containers
 Use -f option to nuke the running containers too.
 
