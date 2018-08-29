@@ -1,4 +1,18 @@
-Docker attach 
+## Start container  
+### from just pulled image (container doesn't exist yet):  
+
+```sh
+docker run --name qqq -d -it centos:6.9
+```
+__-d__ - background  
+Command will create and start the container with name (in this example with name "qqq")  
+
+### To start existing container:  
+```sh
+docker start qqq
+```
+
+## Attaching to running container  
 Don't use docker attach otherwise it will look like hang, see [here](https://stackoverflow.com/questions/35573698/why-does-docker-attach-hang)
 Instead use [following](https://askubuntu.com/questions/505506/how-to-get-bash-or-ssh-into-a-running-container-in-background-mode) command:
 
@@ -10,6 +24,7 @@ or
 $ sudo docker exec -i -t loving_heisenberg /bin/sh #by Name
 ```
 
+## Other useful commands
 List all Docker Images
 
 ```sh
