@@ -195,7 +195,10 @@ Follow the logs of one container running under Docker Compose
 docker-compose logs pump <name>
 ```
 
-Dockerfile Hints for Spring Boot Developers
+# Dockerfile
+Try to RUN as much commands in a single RUN as possible, using && and \ for splitting and next line
+
+## Dockerfile Hints for Spring Boot Developers
 Add Oracle Java to an Image
 For CentOS/ RHEL
 
@@ -204,8 +207,8 @@ ENV JAVA_VERSION 8u31
 ENV BUILD_VERSION b13
  
 # Upgrading system
-RUN yum -y upgrade
-RUN yum -y install wget
+RUN yum -y upgrade && \
+    yum -y install wget
  
 # Downloading & Config Java 8
 RUN wget --no-cookies --no-check-certificate --header "Cookie: oraclelicense=accept-securebackup-cookie" "http://download.oracle.com/otn-pub/java/jdk/$JAVA_VERSION-$BUILD_VERSION/jdk-$JAVA_VERSION-linux-x64.rpm" -O /tmp/jdk-8-linux-x64.rpm
@@ -224,3 +227,12 @@ ADD /maven/myapp-0.0.1-SNAPSHOT.jar myapp.jar
 RUN sh -c 'touch /myapp.jar'
 ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/myapp.jar"]
 ```
+Adding users
+
+```sh
+RUN useradd -ms /bin/bash newuser && \
+        yum install git
+USER newuser
+WORKDIR /home/newuser
+```
+
