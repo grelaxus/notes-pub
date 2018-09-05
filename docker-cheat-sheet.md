@@ -6,6 +6,10 @@ docker run --name qqq -d -it centos:6.9
 ```
 __-d__ - background  
 Command will create and start the container with name (in this example with name "qqq")  
+With attached volume from the host OS:  
+```sh
+docker run -it --name tatata -v /home/tatata/docker-mount/:/usr/share/qqq centos:7
+```
 
 ### To start existing container:  
 ```sh
@@ -23,6 +27,19 @@ or
 ```sh
 $ sudo docker exec -i -t loving_heisenberg /bin/sh #by Name
 ```
+
+## Useful for scripting
+
+to remove a set of containers satisfying friendly_tho* pattern:  
+```sh
+docker rm $(docker container ls -a --format '{{.Names}}' | grep friendly_tho*)
+```
+
+to remove a set of images satisfying stuff_* pattern:  
+```sh
+docker rmi $(docker images | grep stuff_*)
+```
+see also [here](https://stackoverflow.com/questions/32490229/how-can-i-delete-docker-images-by-tag-preferably-with-wildcarding)
 
 ## Other useful commands
 List all Docker Images
