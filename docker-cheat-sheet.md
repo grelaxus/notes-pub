@@ -196,7 +196,7 @@ docker-compose logs pump <name>
 ```
 
 # Dockerfile
-Try to RUN as much commands in a single RUN as possible, using && and \ for splitting and next line
+In order to [minimize number of layers](https://docs.docker.com/develop/develop-images/dockerfile_best-practices/#minimize-the-number-of-layers) try to RUN as much commands in a single RUN as possible, using && and \ for splitting and next line
 
 ## Dockerfile Hints for Spring Boot Developers
 Add Oracle Java to an Image
