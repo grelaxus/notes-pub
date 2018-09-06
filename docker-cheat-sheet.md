@@ -10,6 +10,16 @@ With attached volume from the host OS:
 ```sh
 docker run -it --name tatata -v /home/tatata/docker-mount/:/usr/share/qqq centos:7
 ```
+By default, [Docker containers are started with a reduced set of linux capabilities.](https://stackoverflow.com/questions/30547484/calling-openconnect-vpn-client-in-docker-container-shows-tunsetiff-failed-opera/48948987). To start a container with full network capabilities, either explicitly add the SYS_NET_ADMIN capability with __--cap-add__ argument e.g:  
+```sh
+docker run -d --cap-add SYS_NET_ADMIN myimage
+```
+
+Or give the container the full set of privileges with __--privileged__ e.g:  
+```sh
+docker run -it --name container-name -v /home/tatata/docker-mount/:/usr/share/qqq --privileged ubuntu-dev
+```
+Note: the use case for the 2 last commands is OpenConnect VPN, which cannot be started even as root, --priveleged helped
 
 ### To start existing container:  
 ```sh
@@ -21,11 +31,16 @@ Don't use docker attach otherwise it will look like hang, see [here](https://sta
 Instead use [following](https://askubuntu.com/questions/505506/how-to-get-bash-or-ssh-into-a-running-container-in-background-mode) command:
 
 ```sh
-$ sudo docker exec -i -t 665b4a1e17b6 /bin/bash #by ID
+$ docker exec -i -t 665b4a1e17b6 /bin/bash #by ID
 ```
 or
 ```sh
-$ sudo docker exec -i -t loving_heisenberg /bin/sh #by Name
+$ docker exec -i -t loving_heisenberg /bin/sh #by Name
+```
+
+Attach to a container as root:  
+```sh
+docker exec -u 0 -it container_name  /bin/bash
 ```
 
 ## Useful for scripting
