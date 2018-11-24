@@ -8,7 +8,7 @@ The workaround is to use [a-zA-Z0-0]:
 __cp -r test/.[a-zA-Z0-9]* target__
 
 ## Search expressions
-Following line searches through man page of __bash__ and prints the matched line and the first line after it:
+Following line searches through man page of __bash__ and prints the matched line AND the first line after it:
 ```sh
 man bash | grep -A1 '\-f file$'
 ```
