@@ -1,4 +1,5 @@
-## [Bash Guide for Beginners](http://tldp.org/LDP/Bash-Beginners-Guide/html/index.html)
+## Bash Guide for Beginners
+[Bash Guide for Beginners](http://tldp.org/LDP/Bash-Beginners-Guide/html/index.html)
 by Machtelt Garrels  
 including complete intro into __if__, __awk__, __sed__ etc.
 
@@ -42,7 +43,7 @@ Some [handy sed one-liners](https://github.com/grelaxus/notes-pub/blob/master/sh
 
 ## if
 [Full intro to if](http://tldp.org/LDP/Bash-Beginners-Guide/html/sect_07_01.html)  
-[What is the difference between the Bash operators \[\[ vs \[ vs \( vs \(\(?](https://unix.stackexchange.com/questions/306111/what-is-the-difference-between-the-bash-operators-vs-vs-vs)
+[What is the difference between the Bash operators \[\[ vs \[ vs \( vs \(\(?](https://unix.stackexchange.com/questions/306111/what-is-the-difference-between-the-bash-operators-vs-vs-vs) Following a short answer is here:  
 
 An __if__ statement typically looks like
 
