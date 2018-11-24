@@ -31,3 +31,7 @@ same principle for search in files:
 ```sh
 grep -A1 'blah' logfile|grep -v "blah"
 ```
+
+## Text editing
+sed - stream editor for filtering and transforming text.  
+Some [handy sed one-liners](https://github.com/grelaxus/notes-pub/blob/master/shell-notes/SED_handy_one-liners.html)
