@@ -42,7 +42,7 @@ Some [handy sed one-liners](https://github.com/grelaxus/notes-pub/blob/master/sh
 
 ## if
 [Full intro to if](http://tldp.org/LDP/Bash-Beginners-Guide/html/sect_07_01.html)  
-[What is the difference between the Bash operators [[ vs [ vs ( vs ((?](https://unix.stackexchange.com/questions/306111/what-is-the-difference-between-the-bash-operators-vs-vs-vs)
+[What is the difference between the Bash operators \[\[ vs \[ vs \( vs \(\(?](https://unix.stackexchange.com/questions/306111/what-is-the-difference-between-the-bash-operators-vs-vs-vs)
 
 An __if__ statement typically looks like
 
