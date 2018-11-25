@@ -1,4 +1,18 @@
-## Bash Guide for Beginners
+
+## CLI
+
+[command output redirect to both: file and terminal](https://stackoverflow.com/questions/13591374/command-output-redirect-to-file-and-terminal)
+```sh
+ls 2>&1 | tee /tmp/ls.log
+```
+`2>&1` redirects channel 2 (stderr/standard error) into channel 1 (stdout/standard output), such that both is written as stdout. It is also directed to the given output file as of the tee command.
+
+Furthermore, if you want to _append_ to the log file (say it exists), use tee -a as
+```sh
+ls 2>&1 | tee -a /tmp/ls.log
+```
+
+## Bash Guide
 [Bash Guide for Beginners](http://tldp.org/LDP/Bash-Beginners-Guide/html/index.html)
 by Machtelt Garrels  
 including complete intro into __if__, __awk__, __sed__ etc.
@@ -55,7 +69,7 @@ else
    commands3
 fi
 ```
-The then clause is executed if the exit code of ```commands1``` is zero. If the exit code is nonzero, then the else clause is executed. ```commands1``` can be simple or complex. It can, for example, be a sequence of one or more pipelines separated by one of the operators ```;```, ```&```, ```&&```, or ```||```. The if conditions shown below are just special cases of ```commands1```:
+The then clause is executed if the exit code of `commands1` is zero. If the exit code is nonzero, then the else clause is executed. `commands1` can be simple or complex. It can, for example, be a sequence of one or more pipelines separated by one of the operators `;`, ```&```, ```&&```, or ```||```. The if conditions shown below are just special cases of `commands1`:  
 
     1. if [ condition ]
 
