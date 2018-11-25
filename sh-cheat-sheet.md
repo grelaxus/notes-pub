@@ -11,6 +11,8 @@ Furthermore, if you want to _append_ to the log file (say it exists), use tee -a
 ```sh
 ls 2>&1 | tee -a /tmp/ls.log
 ```
+### stdin, stdout, stderr
+http://www.learnlinux.org.za/courses/build/shell-scripting/ch01s04.html
 
 ## Bash Guide
 [Bash Guide for Beginners](http://tldp.org/LDP/Bash-Beginners-Guide/html/index.html)
