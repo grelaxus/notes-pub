@@ -78,3 +78,22 @@ The then clause is executed if the exit code of ```commands1``` is zero. If the 
     5. if command
 
     command is executed and the if statement acts according to its exit code.
+    
+    
+    
+
+| Operator	| Meaning                                 | Example                          |
+| ------------| :---                                    |:---------------------------------|
+| >	       | Comes before alphabetically	       | if [[ $a > $b ]]
+| <	       | Comes first alphabetically	       | if [[ cat < dog ]]
+| =	       | Equal (strings)	                     | if [[ $path = "/usr/bin/" ]]
+| -lt	       | less than (integers)	              | if [[ 1 -lt 10 ]]
+| -gt	       | greater than (integers)	              | if [[ $number -gt 0 ]]
+| -eq	       | Equal (integers)	                     | if [[ $status -eq 0 ]]
+| -ne	       | Not equal (integers)	              | if [[ $year -ne 2018 ]]
+| -e 	       | File exists	                            | if [[ -e "$bam_index" ]]
+| -d	       | File exists, and its a directory	       | if [[ -d "/tmp" ]]
+| -f 	       | File exists, and its a regular file	| if [[ -f ~/.bashrc ]]
+| -s	       | File exists and its not empty	       | if [[ -s "$output" ]]
+
+
