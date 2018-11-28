@@ -16,3 +16,21 @@ The same idea for starting `^` expressions.
 **Replace:**  
 \1 - use only the first group from the expression above
 
+## From experience
+### Backreference followed by a number (in Ansible)
+When using regex in Ansible, e.g. replace command:
+```
+- replace: dest='tmp.cfg' regexp='(^tick.*)=([0-9]*)' replace='\1=qq'
+```
+groups are a very convenient way to use in replcae (this is called [backreference](https://www.regular-expressions.info/backref.html) and see also [here](https://www.regular-expressions.info/refcapture.html)).
+Common usage is `\1` - up to \99 groups can be used. BUT, if number follows by the group Ansible (and possibly not only Ansible) gets confused: e.g. I want to add `0` after group `\1`, so following expression would confuse Ansible:
+```
+- replace: dest='tmp.cfg' regexp='(^tick.*)=([0-9]*)' replace='\10'
+```
+because it tries to find group `10`, rather than group `1`  
+There are options to try (different languages may support slihtly different syntax'). Following works for Ansible:  
+```
+- replace: dest='tmp.cfg' regexp='(^tick.*)=([0-9]*)' replace='\g<1>0'
+```
+also `${1}0` can be considered (didn't work for Ansible though).  
+[Here](https://www.regular-expressions.info/refcapture.html) is table of syntaxs' per language/platform
