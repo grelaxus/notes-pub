@@ -27,7 +27,7 @@ Common usage is `\1` - up to \99 groups can be used. BUT, if number follows by t
 ```
 - replace: dest='tmp.cfg' regexp='(^tick.*)=([0-9]*)' replace='\10'
 ```
-because it tries to find group `10`, rather than group `1`  
+because it tries to find group `10`, rather than group `1`, and it fails with error "invalid group reference"  
 There are options to try (different languages may support slihtly different syntax'). Following works for Ansible:  
 ```
 - replace: dest='tmp.cfg' regexp='(^tick.*)=([0-9]*)' replace='\g<1>0'
