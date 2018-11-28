@@ -33,6 +33,7 @@ Following line searches through man page of __bash__ and prints the matched line
 ```sh
 man bash | grep -A1 '\-f file$'
 ```
+`$` - defines end of line (the found line should end with the expression in the regexp)  
 The OUTPUT is:  
 ```
        -f file
