@@ -132,4 +132,4 @@ The then clause is executed if the exit code of `commands1` is zero. If the exit
 [__update-rc.d__](https://manpages.debian.org/wheezy/sysv-rc/update-rc.d.8.en.html) updates the System V style init script links /etc/rcrunlevel.d/NNname whose target is the script __/etc/init.d__/_name_. These links are run by init when it changes runlevels; they are generally used to start and stop system services such as daemons. runlevel is one of the runlevels supported by init, namely, 0123456789S, and NN is the two-digit sequence number that determines where in the sequence __init__ will run the scripts.
 
 [How to reliably start a service with UpStart](https://zohaib.me/how-to-reliably-start-a-service-with-upstart/)  
-[Upstart cookbook)(http://upstart.ubuntu.com/cookbook/#job-states)
+[Upstart cookbook](http://upstart.ubuntu.com/cookbook/#job-states)
