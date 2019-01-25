@@ -69,8 +69,8 @@ echo qwer-txt/qwer | sed 's@.*/@asdf/@'
 ```
 result: asdf/qwer
 
-want to comment out multiple lines? Here you go:
-want to [prefix # to all the lines having text \'\[myprocess\' and 4 lines that follows it](https://stackoverflow.com/questions/11703900/sed-comment-a-matching-line-and-x-lines-after-it) expected output:
+want to comment out multiple lines? Here you go:  
+want to [prefix # to all the lines having text \'\[myprocess\' and 4 lines that follows it](https://stackoverflow.com/questions/11703900/sed-comment-a-matching-line-and-x-lines-after-it) expected output:  
 ```
 #[myprocess-a]
 #property1=1
@@ -90,11 +90,11 @@ property4=djfjf
 #property2=2
 #property3=3
 ```
-This command will do that:
+This command will do that:  
 ```sh
 sed -e '/myprocess/,+4 s/^/#/' 
 ```
-Without verbous output:
+Without verbous output:  
 ```sh
 sed -i '/myprocess/,+4 s/^/#/' 
 ```
