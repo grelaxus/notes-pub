@@ -98,7 +98,24 @@ Without verbous output:
 ```sh
 sed -i '/myprocess/,+4 s/^/#/' 
 ```
+Following command replace a line on the third line after the matched one:  
+```sh
+sed -i '/- name: ansible task name/{n;n;s/what to replace on 3rd line after the first match/replace with/}' filepath
+```
 
+Delete the next after the matched:
+```sh
+sed -i '/find a match/{n;/action: shell/d}' filepath
+```
+
+NOTE: in order to substitute variables in sed command, use **double quotes**! Single quotes don't substitute!:  
+```sh
+sed -i "/find a match/shell echo ${CUSTOM_HOSTNAME}"
+```
+Append a line after the match (using a after the last delimiter):
+```sh
+sed -i "/find a match/awhat to append"
+```
 
 Some more [handy sed one-liners](https://github.com/grelaxus/notes-pub/blob/master/shell-notes/SED_handy_one-liners.html) (the [source](https://edoras.sdsu.edu/doc/sed-oneliners.html))
 
