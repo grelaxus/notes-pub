@@ -19,8 +19,8 @@ http://www.learnlinux.org.za/courses/build/shell-scripting/ch01s04.html
 by Machtelt Garrels  
 including complete intro into __if__, __awk__, __sed__ etc.  
 
-**`^` - defines begin of line**
-**`$` - defines end of line**
+**`^` - defines begin of line**  
+**`$` - defines end of line**  
 
 ## Wildcard workaround
 The wildcard * operations don't include files with name beginning with ".". E.g. if following directory contains files ".gitignore" and ".travis.yml" - cp * won't copy them, rm * won't delete them.  
