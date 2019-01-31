@@ -69,7 +69,7 @@ echo qwer-txt/qwer | sed 's@.*/@asdf/@'
 ```
 result: asdf/qwer
 
-checkout more about sed [here](https://github.com/grelaxus/notes-pub/blob/master/sed-cheat-sheet.md)
+*Checkout more about sed [here](https://github.com/grelaxus/notes-pub/blob/master/sed-cheat-sheet.md)*
 
 ## if
 [Full intro to if](http://tldp.org/LDP/Bash-Beginners-Guide/html/sect_07_01.html)  
