@@ -1,3 +1,13 @@
+# How sed Works
+[6.1 How sed Works](https://www.gnu.org/software/sed/manual/sed.html#Execution-Cycle)   
+sed maintains two data buffers: the active pattern space, and the auxiliary hold space. Both are initially empty.
+
+sed operates by performing the following cycle on each line of input: first, sed reads one line from the input stream, removes any trailing newline, and places it in the pattern space. Then commands are executed; each command can have an address associated to it: addresses are a kind of condition code, and a command is only executed if the condition is verified before the command is to be executed.
+
+When the end of the script is reached, unless the -n option is in use, the contents of pattern space are printed out to the output stream, adding back the trailing newline if it was removed. Then the next cycle starts for the next input line.
+
+Unless special commands (like ‘D’) are used, the pattern space is deleted between two cycles. The hold space, on the other hand, keeps its data between cycles (see commands ‘h’, ‘H’, ‘x’, ‘g’, ‘G’ to move data between both buffers).
+
 
 From GNU man [page](https://www.gnu.org/software/sed/manual/sed.html#Overview):  
 { *commands* }  
