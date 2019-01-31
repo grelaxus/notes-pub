@@ -18,7 +18,7 @@ $ seq 3 | sed -n '2{s/2/X/ ; p}'
 X
 ```
 
-want to comment out multiple lines? Here you go:  
+### want to comment out multiple lines? Here you go:  
 want to [prefix # to all the lines having text \'\[myprocess\' and 4 lines that follows it](https://stackoverflow.com/questions/11703900/sed-comment-a-matching-line-and-x-lines-after-it) expected output:  
 ```
 #[myprocess-a]
@@ -47,9 +47,26 @@ Without verbous output:
 ```sh
 sed -i '/myprocess/,+4 s/^/#/' 
 ```
+
+### Replacing on N-th line after the matched on?
 Following command replace a line on the third line after the matched one:  
 ```sh
-sed -i '/- name: ansible task name/{n;n;s/what to replace on 3rd line after the first match/replace with/}' filepath
+sed -i '/ansible task name/{n;n;s/what to replace on 3rd line after the first match/replace with/}' filepath
+```
+Or if replacing only a part line, regex will do it's job with '**.\***'
+```sh
+sed -i '/ansible task name/{n;s/action: .*/action: replacement/}'
+```
+A quick check in command line, appends (through substitution) 2 lines ("- qqq" and "- zzz") right in the middle of ccc:
+```sh
+printf '%s\n' "- aaa" "- bbb" "- ccc" "- ddd" "- eee" | sed  "/aaa/{n;n;s/cc/cc\n   - qqq\n   - zzz/}" 
+- aaa
+- bbb
+- cc
+   - qqq
+   - zzzc
+- ddd
+- eee
 ```
 
 Delete the next after the matched:
@@ -67,3 +84,6 @@ sed -i "/find a match/awhat to append"
 ```
 
 Some more [handy sed one-liners](https://github.com/grelaxus/notes-pub/blob/master/shell-notes/SED_handy_one-liners.html) (the [source](https://edoras.sdsu.edu/doc/sed-oneliners.html))
+
+
+
