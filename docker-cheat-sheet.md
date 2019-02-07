@@ -251,3 +251,10 @@ USER newuser
 WORKDIR /home/newuser
 ```
 
+# Troubleshooting
+
+If docker container runs in infinite loop of restarts (following [this](https://docs.docker.com/registry/insecure/) and [this](https://docs.docker.com/registry/deploying/#get-a-certificate) lead me to one) and nothing helps (container doesn't stop, it cannot be killed and reboot doesn't help), then follow the [advice](https://stackoverflow.com/questions/31365827/cannot-stop-or-restart-a-docker-container#comment88795495_48220556):
+```sh
+$ sudo systemctl restart docker.socket docker.service
+$ docker rm <container id>
+```
