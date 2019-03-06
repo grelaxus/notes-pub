@@ -274,7 +274,7 @@ mkdir -p certs
 openssl req \
   -newkey rsa:4096 -nodes -sha256 -keyout certs/domain.key \
   -x509 -days 365 -out certs/domain.crt
-#in the prompt make sure to use the name myregistrydomain.com as a CN.
+#in the prompt make sure to use the name myregistrydomain.com as a CN. IP-address may not work  
 docker container stop registry
 
 docker run -d --name registry   -v "$(pwd)"/certs:/certs   -e REGISTRY_HTTP_ADDR=0.0.0.0:443   -e REGISTRY_HTTP_TLS_CERTIFICATE=/certs/domain.crt   -e REGISTRY_HTTP_TLS_KEY=/certs/domain.key   -p 443:443   registry:2
