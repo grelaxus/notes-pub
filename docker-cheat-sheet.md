@@ -255,7 +255,64 @@ RUN useradd -ms /bin/bash newuser && \
 USER newuser
 WORKDIR /home/newuser
 ```
+# DevOps
+[setting up a private docker registry (official doc)](https://docs.docker.com/registry/deploying/#copy-an-image-from-docker-hub-to-your-registry)
 
+[more detailed blog post on setting up a private docker registry](https://blog.sleeplessbeastie.eu/2018/04/16/how-to-setup-private-docker-registry/)
+
+
+<details><summary>Here is how I did this to get it working over TLS (expand): </summary><p>
+
+
+```sh
+######################### Docker Registry ########################
+#https://docs.docker.com/registry/insecure/
+#https://docs.docker.com/registry/deploying/#get-a-certificate
+
+# First creating a self-signed certificate
+mkdir -p certs
+openssl req \
+  -newkey rsa:4096 -nodes -sha256 -keyout certs/domain.key \
+  -x509 -days 365 -out certs/domain.crt
+#in the prompt make sure to use the name myregistrydomain.com as a CN.
+docker container stop registry
+
+docker run -d --name registry   -v "$(pwd)"/certs:/certs   -e REGISTRY_HTTP_ADDR=0.0.0.0:443   -e REGISTRY_HTTP_TLS_CERTIFICATE=/certs/domain.crt   -e REGISTRY_HTTP_TLS_KEY=/certs/domain.key   -p 443:443   registry:2
+docker logs --tail 50 --follow --timestamps registry
+
+# Following command shows certficate info for the hostname/IP:  
+openssl s_client -connect hostname/IP:PORT -showcerts
+
+
+# makedir and copy certificate to client
+# PS: don't change the hostname to IP - the certificate is generated for hostname. Instead add the hostname in /etc/hosts
+sudo mkdir -p /etc/docker/certs.d/sc-cluster-05-02:443
+sudo scp sc-cluster-05-02:/home/ztsadmin/certs/domain.crt /etc/docker/certs.d/sc-cluster-05-02:443/ca.crt
+
+# push image to docker
+docker tag image_name cluster-node-01:443/image_name:asdfqwer1234
+docker push cluster-node-01:443/image_name:asdfqwer1234
+
+# list images
+curl --cacert /etc/docker/certs.d/cluster-node-01\:443/ca.crt -X GET https://cluster-node-01:443/v2/_catalog
+
+curl --cacert /etc/docker/certs.d/cluster-node-01\:443/ca.crt -X GET https://cluster-node-01:443/v2/image_name/tags/list
+
+# The gitpull-build-dockerpush can be scripted. For the build.sh and release.sh following article was useful: https://medium.com/travis-on-docker/how-to-version-your-docker-images-1d5c577ebf54
+# Didn't use his image treeder/bump though. Used git current hash instead
+# version=`git rev-parse --short HEAD`
+# also not running git commands (pull, commit, push)
+# he re-wrote the script in go https://github.com/treeder/dockers/tree/master/bump
+
+# https://stackoverflow.com/questions/29802202/docker-registry-2-0-how-to-delete-unused-images
+# https://medium.com/@mcvidanagama/cleanup-your-docker-registry-ef0527673e3a
+sudo ls -al /var/lib/docker/volumes/7dae1eb510357ce0efb2219744b9115c1caac654affcb04340fbc938877eee0a/_data/docker/registry/v2/repositories/image_name/_layers/sha256
+```
+
+ </p>
+ </details>
+ 
+# Plugins
 # Troubleshooting
 
 If docker container runs in infinite loop of restarts (following [this](https://docs.docker.com/registry/insecure/) and [this](https://docs.docker.com/registry/deploying/#get-a-certificate) lead me to one) and nothing helps (container doesn't stop, it cannot be killed and reboot doesn't help), then follow the [advice](https://stackoverflow.com/questions/31365827/cannot-stop-or-restart-a-docker-container#comment88795495_48220556):
