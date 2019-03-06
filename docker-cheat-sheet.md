@@ -57,18 +57,19 @@ docker rmi $(docker images | grep stuff_*)
 see also [here](https://stackoverflow.com/questions/32490229/how-can-i-delete-docker-images-by-tag-preferably-with-wildcarding)
 
 ## Other useful commands
-List all Docker Images
 
+<details><summary>Multiple useful commands are listed here (expand)</summary><p>
+
+List all Docker Images
+ 
 ```sh
 docker images -a
 ```
-
 List All Running Docker Containers
 
 ```sh
 docker ps
 ```
-
 List All Docker Containers
 
 ```sh
@@ -209,6 +210,10 @@ Follow the logs of one container running under Docker Compose
 ```sh
 docker-compose logs pump <name>
 ```
+
+ </p>
+ </details>
+
 
 # Dockerfile
 In order to [minimize number of layers](https://docs.docker.com/develop/develop-images/dockerfile_best-practices/#minimize-the-number-of-layers) try to RUN as much commands in a single RUN as possible, using && and \ for splitting and next line
