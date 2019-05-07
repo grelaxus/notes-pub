@@ -14,6 +14,19 @@ ls 2>&1 | tee -a /tmp/ls.log
 ### stdin, stdout, stderr
 http://www.learnlinux.org.za/courses/build/shell-scripting/ch01s04.html
 
+### Hash
+
+Following command calculates hash of a string:
+```sh
+echo -n qwerty | sha256sum
+```
+But the disadvantage of the above command is it leaves a trace in the history, better way is to store the string in a file cat it (removing trailing new line):  
+```sh
+cat qqq | tr -d '\n' | sha256sum
+```
+Here is [explain shell](https://explainshell.com/explain?cmd=cat+qqq+%7C+tr+-d+%27%5Cn%27+%7C+sha256sum) of the command
+
+
 ## Bash Guide
 [Bash Guide for Beginners](http://tldp.org/LDP/Bash-Beginners-Guide/html/index.html)
 by Machtelt Garrels  
