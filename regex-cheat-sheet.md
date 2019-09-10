@@ -8,6 +8,42 @@ E.g. `man bash | grep -A1 '\-f file$'` returns (more on shell commands [here](ht
 ```
 we say that the line should contain "-f file" expression and it must end with this expression. The same command, without `$` at the end will return a few more found items, including `-f filename`.
 The same idea for starting `^` expressions.
+## Java
+
+In the following example `"\\s"` matches one whitespace, `"\\s+"` matches one or many whitespaces. Note, the result will be the same (replaced all whitespaces), however x.replaceAll("\\s+", ""); will be more efficient way of trimming spaces, because of potentially less number of replacements
+
+```java
+
+x = x.replaceAll("\\s", "");
+//replace one or many whitespaces
+x = x.replaceAll("\\s+", "");
+```
+
+From [java doc](https://docs.oracle.com/javase/9/docs/api/java/util/regex/Pattern.html):  
+
+**Greedy** quantifiers
+X?  X, once or not at all
+X*  X, zero or more times
+X+  X, one or more times
+X{n}    X, exactly n times
+X{n,}   X, at least n times
+X{n,m}  X, at least n but not more than m times
+
+**Reluctant** quantifiers
+X?? X, once or not at all
+X*? X, zero or more times
+X+? X, one or more times
+X{n}?   X, exactly n times
+X{n,}?  X, at least n times
+X{n,m}? X, at least n but not more than m times
+
+**Possessive** quantifiers
+X?+ X, once or not at all
+X*+ X, zero or more times
+X++ X, one or more times
+X{n}+   X, exactly n times
+X{n,}+  X, at least n times
+X{n,m}+ X, at least n but not more than m times
 
 ## gedit
 **Find:**  
