@@ -27,7 +27,7 @@ public void doSomething(Object lock, ...) {
 }
 ```
 
-In other words, for the same thread, acquiring same lock second (thrid or whatever) time won't fail. For other thread - it will.
+In other words, **for the same thread, acquiring same lock second (thrid or whatever) time won't fail. For other thread - it will.**
 The alternative to reentrant is non-reentrant locking, where it would be an error for a thread to attempt to acquire a lock 
 that it already holds.  
 
