@@ -11,6 +11,22 @@ Furthermore, if you want to _append_ to the log file (say it exists), use tee -a
 ```sh
 ls 2>&1 | tee -a /tmp/ls.log
 ```
+### grep
+Including two lines Before the match and 10 lines After:  
+```sh
+vgdisplay | grep -B2 -A10 <pattern>
+```
+Another possibility when you're just looking for any of several patterns (as opposed to building a complex pattern using disjunction) is to pass multiple patterns to grep. You can do this by preceding each pattern with the **-e** option.
+```sh
+grep -e foo -e bar *.txt
+```
+To use [extended regular expressions](https://en.wikipedia.org/wiki/Regular_expression#POSIX_extended) pass the **-E** option to grep to select it. On Linux, you can also type egrep instead of grep -E (on other unices, you can make that an alias).
+
+```sh
+grep -E 'foo|bar' *.txt
+```
+
+
 ### stdin, stdout, stderr
 http://www.learnlinux.org.za/courses/build/shell-scripting/ch01s04.html
 
