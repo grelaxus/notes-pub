@@ -19,6 +19,12 @@ x = x.replaceAll("\\s", "");
 x = x.replaceAll("\\s+", "");
 ```
 
+parse result of `parted %s print free -m` command (e.g. for a partition /dev/sdd35 Number:Start:End:Size:Flags `1:354GB:999GB:645GB:free;`)
+```java
+Pattern pattern = Pattern.compile("(?m)^[\\d]+:([\\d\\.]+[a-zA-Z]{1,2}):([\\d\\.]+[a-zA-Z]{1,2}):([\\d\\.]+[a-zA-Z]{1,2}):.*free.*;$");
+```
+(?m) - embedded flag expression that enables multiline mode 
+
 From [java doc](https://docs.oracle.com/javase/9/docs/api/java/util/regex/Pattern.html):  
 
 **Greedy** quantifiers
