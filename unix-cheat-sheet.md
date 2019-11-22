@@ -1,3 +1,10 @@
+# Create a cron job
+
+```sh
+sudo crontab -e
+```
+\* * * * * sudo tar -cpzf /backup/backup-`date +\%Y\%m\%d\%H\%M\%S`.tar.gz /var/www/
+
 # Working with block devices
 
 ```sh
