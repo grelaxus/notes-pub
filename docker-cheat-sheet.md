@@ -214,6 +214,20 @@ docker-compose logs pump <name>
  </p>
  </details>
 
+# Images
+## Export and Import images 
+
+```sh
+docker save -o <path for generated tar file> <image name>
+```
+```sh
+docker load -i <path to image tar file>
+
+```
+e.g.
+```sh
+docker save -o build/my-operator.tar my-operator
+```
 
 # Dockerfile
 In order to [minimize number of layers](https://docs.docker.com/develop/develop-images/dockerfile_best-practices/#minimize-the-number-of-layers) try to RUN as much commands in a single RUN as possible, using && and \ for splitting and next line
@@ -311,8 +325,7 @@ sudo ls -al /var/lib/docker/volumes/7dae1eb510357ce0efb2219744b9115c1caac654affc
 
  </p>
  </details>
- 
-# Plugins
+
 # Troubleshooting
 
 If docker container runs in infinite loop of restarts (following [this](https://docs.docker.com/registry/insecure/) and [this](https://docs.docker.com/registry/deploying/#get-a-certificate) lead me to one) and nothing helps (container doesn't stop, it cannot be killed and reboot doesn't help), then follow the [advice](https://stackoverflow.com/questions/31365827/cannot-stop-or-restart-a-docker-container#comment88795495_48220556):
