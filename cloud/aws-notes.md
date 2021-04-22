@@ -38,3 +38,54 @@ Based on my experiences I can say you cannot server 2000 users concurrently on T
 
 t2.nano observation:  
 https://www.concurrencylabs.com/blog/handle-thousands-of-users-with-a-t2-nano/
+
+# Useful commands
+Run EC2 instance (e.g. ami-efa8f88f) with a block device mapping (specified in the config.json) with public IP, subnet, and tag node_type=storage.
+Note: to have the instance available publicly --associate-public-ip-address is not enough, DNS names need to be enabled in VPC (check [this](https://forums.aws.amazon.com/thread.jspa?threadID=316395) and [this](https://www.edureka.co/community/12614/ec2-instance-has-no-public-dns) out) and Internet GW needs to be added (as well as inbound and outbound rules need to be added in Security group)
+```sh
+aws ec2 run-instances --image-id ami-efa8f88f --instance-type t2.medium --block-device-mappings file://$(pwd)/../ebs-config.json --key-name myKeyPair --associate-public-ip-address --region us-west-1 --subnet-id subnet-0b9d48bbca2dc7aa7 --tag-specifications 'ResourceType=instance,Tags=[{Key=node_type,Value=storage}]'
+```
+the ebs-config.json looks like this:
+```json
+[
+  {
+    "DeviceName": "/dev/xvdb",
+    "Ebs": {
+    "DeleteOnTermination": true,
+    "VolumeType": "gp2",
+    "VolumeSize": 30
+    }
+  }
+]
+```
+After running the instances we can list their public names filtering by the tag key (i.e. "node_type")
+```sh
+aws ec2 describe-instances --region us-west-1 --filters "Name=tag-key,Values=node_type" --query 'Reservations[*].Instances[*].PublicDnsName' --output text
+```
+OR tag key/value (i.e. "storage")
+```sh
+aws ec2 describe-instances --region us-west-1 --filters "Name=tag-key,Values=node_type" --filters "Name=tag-value,Values=monitor" --query 'Reservations[*].Instances[*].PublicDnsName' --output text
+```
+If the outpud is preheaded with empty line, those can be cleaned up:
+```sh
+aws ec2 describe-instances --region us-west-1 --filters "Name=tag-key,Values=node_type" --filters "Name=tag-value,Values=monitor" --query 'Reservations[*].Instances[*].PublicDnsName' --output text| sed '/^$/d'
+```
+This same describe-instances command can be used to ssh-edit files. In the following example I get the list of the hostnames from each EC2 host:
+```sh
+for i in `aws ec2 describe-instances --region us-west-1 --filters "Name=tag-key,Values=node_type" --query 'Reservations[*].Instances[*].PublicDnsName' --output text`; \ 
+do ssh -i cephKeyPair.pem fedora@$i.us-west-1.compute.amazonaws.com "sudo hostname"; done
+```
+And here I edit the /etc/hosts with those hosts (the command can be improved obviously):
+```sh
+for i in `aws ec2 describe-instances --region us-west-1 --filters "Name=tag-key,Values=node_type" --query 'Reservations[*].Instances[*].PublicDnsName' --output text`; \
+do ssh -i myKeyPair.pem fedora@$i 'echo "10.0.16.206 ip-10-0-16-206.us-west-1.compute.internal" | sudo tee -a /etc/hosts; \
+echo "10.0.16.206 ip-10-0-16-206.us-west-1.compute.internal" | sudo tee -a /etc/hosts; \
+echo "10.0.20.204 ip-10-0-20-204.us-west-1.compute.internal" | sudo tee -a /etc/hosts; \
+echo "10.0.26.27 ip-10-0-26-27.us-west-1.compute.internal" | sudo tee -a /etc/hosts; \
+echo "10.0.22.24 ip-10-0-22-24.us-west-1.compute.internal" | sudo tee -a /etc/hosts; \
+echo "10.0.26.223 ip-10-0-26-223.us-west-1.compute.internal" | sudo tee -a /etc/hosts; \
+echo "10.0.28.196 ip-10-0-28-196.us-west-1.compute.internal" | sudo tee -a /etc/hosts'; done
+```
+
+Similarly other fields also can be queried. To get a json output omit the '--output text' option 
+
