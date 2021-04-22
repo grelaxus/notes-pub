@@ -40,6 +40,8 @@ t2.nano observation:
 https://www.concurrencylabs.com/blog/handle-thousands-of-users-with-a-t2-nano/
 
 # Useful commands
+## awc cli
+### Run instances
 Run EC2 instance (e.g. ami-efa8f88f) with a block device mapping (specified in the config.json) with public IP, subnet, and tag node_type=storage.
 Note: to have the instance available publicly --associate-public-ip-address is not enough, DNS names need to be enabled in VPC (check [this](https://forums.aws.amazon.com/thread.jspa?threadID=316395) and [this](https://www.edureka.co/community/12614/ec2-instance-has-no-public-dns) out) and Internet GW needs to be added (as well as inbound and outbound rules need to be added in Security group)
 ```sh
