@@ -1,9 +1,56 @@
+# Network
+Start listening on a specified IP/port:
+```sh
+nc -v -ln 10.0.31.59 3333
+```
+Result:
+```sh
+ubuntu@ip-10-0-31-59:~$ netstat -tlpn
+Proto Recv-Q Send-Q Local Address           Foreign Address         State       PID/Program name
+tcp        0      0 10.0.31.59:3333         0.0.0.0:*               LISTEN      1517/nc
+```
+Start listening a port (connections to all IPs):
+```sh
+nc -v -ln 3333
+```
+Result:
+```sh
+ubuntu@ip-10-0-31-59:~$ netstat -tlpn
+Proto Recv-Q Send-Q Local Address           Foreign Address         State       PID/Program name
+tcp        0      0 0.0.0.0:3333            0.0.0.0:*               LISTEN      1391/nc
+```
+
+Connect to a remote IP/port:
+```sh
+nc -zvw10 10.0.19.226 6789
+```
+
 # Create a cron job
 
 ```sh
 sudo crontab -e
 ```
+[Spec and examples](https://www.tutorialspoint.com/unix_commands/crontab.htm)
+
+## Some examples
+
+To run /usr/bin/sample.sh at 12.59 every day and supress the output:
+```sh
+59 12 * * * simon /usr/bin/sample.sh > /dev/null 2>&1
+```
+To run sample.sh every Tuesday to Saturday at 1am (01:00)
+```sh
+0 1 * * 2-7 sample.sh 1>/dev/null 2>&1
+```
+To run sample.sh every 10 minutes.
+```sh
+*/10 * * * * sample.sh
+```
+
+Other samples:
+```sh
 \* * * * * sudo tar -cpzf /backup/backup-`date +\%Y\%m\%d\%H\%M\%S`.tar.gz /var/www/
+```
 
 # Working with block devices
 
