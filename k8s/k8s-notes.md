@@ -23,3 +23,18 @@ https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-regi
 ```sh
 kubectl get secret regcred --output=yaml
 ```
+To get a decoded json:
+```sh
+kubectl get secret zts-dockerhub-token --output="jsonpath={.data.\.dockerconfigjson}" | base64 --decode
+```
+The output:
+```sh
+{
+    "auths": {
+        "https://index.docker.io/v1/": {
+            "auth": "em.........DUw"
+        }
+    }
+}
+```
+
