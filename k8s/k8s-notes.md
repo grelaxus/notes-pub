@@ -17,3 +17,9 @@ Raw
 sh-4.2# chroot /host bash
 [root@ip-10-0-132-143 /]#  
 ```
+
+# Inspecting image pull secret
+https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/#inspecting-the-secret-regcred
+```sh
+kubectl get secret regcred --output=yaml
+```
