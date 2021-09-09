@@ -1,4 +1,14 @@
 
+# Expand root partition on running EC2 instance
+
+1. Increase the size in the AWS console:
+   https://blog.shikisoft.com/increase-root-volume-of-ebs-backed-ec2/
+2. Follow [these](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/recognize-expanded-volume-linux.html?icmpid=docs_ec2_console) steps to extend the root partition on the Linux. The key command is this one:
+```sh
+[ec2-user ~]$ sudo growpart /dev/nvme0n1 1
+```
+ 
+
 # Configure credentials
 When aws CLI is used through docker container (or other situations where AWS security creds need to be specified), configure credentials such that they are not exposed in command line.  
 One way of doing that is to specify them in a separate file and then source it and export. E.g.  
