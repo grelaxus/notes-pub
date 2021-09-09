@@ -3,8 +3,11 @@
 
 1. Increase the size in the AWS console:
    https://blog.shikisoft.com/increase-root-volume-of-ebs-backed-ec2/
+
 2. Follow [these](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/recognize-expanded-volume-linux.html?icmpid=docs_ec2_console) steps to extend the root partition on the Linux. The key commands are:
 ```sh
+[ec2-user ~]$ df -hT
+[ec2-user ~]$ lsblk
 [ec2-user ~]$ sudo growpart /dev/nvme0n1 1
 [ec2-user ~]$ sudo xfs_growfs -d /
 ```
