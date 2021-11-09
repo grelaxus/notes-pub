@@ -333,3 +333,39 @@ If docker container runs in infinite loop of restarts (following [this](https://
 $ sudo systemctl restart docker.socket docker.service
 $ docker rm <container id>
 ```
+## Build
+### Layers and size analysis
+
+Track layer's sizes:
+```sh
+$ sudo docker history 2649bdfd09ee
+IMAGE               CREATED             CREATED BY                                      SIZE                COMMENT
+2649bdfd09ee        12 minutes ago      /bin/sh -c #(nop)  CMD ["/usr/sbin/init"]       0 B
+...
+350f25843075        14 minutes ago      /bin/sh -c yum -y install java-1.8.0-openj...   822 MB
+```
+Adding following command to Dockerfile may help reducing the image size significantly (at least on RedHat Linux):
+```sh
+yum clean all && rm -rf /var/cache/yum
+```
+
+Also following command may be informative for size tracking:
+```sh
+$ docker system df -v
+```
+Output:
+```sh
+Images space usage:
+
+REPOSITORY                             TAG                                                   IMAGE ID            CREATED             SIZE                SHARED SIZE         UNIQUE SIZE         CONTAINERS
+<none>                                 <none>                                                2649bdfd09ee        6 minutes ago       3.017 GB            205.4 MB            2.812 GB            0
+<none>                                 <none>                                                35f62f0379dc        9 hours ago         3.544 GB            205.4 MB            3.339 GB            0
+<none>                                 <none>                                                06910babaeed        5 days ago          2.962 GB            2.029 GB            933.5 MB            0
+<none>                                 <none>                                                b15ef5c49e72        3 weeks ago         2.962 GB            2.029 GB            
+
+Containers space usage:
+
+CONTAINER ID        IMAGE                                                         COMMAND                  LOCAL VOLUMES       SIZE                CREATED             STATUS                        NAMES
+c37e20de7f24        4595d2bdfbaa                                                  "/bin/sh -c 'yum -..."   0                   12.4 MB             19 minutes ago      Exited (127) 18 minutes ago   thirsty_mclean
+2c8599eccdcd        912f38da3750                                                  "ls /opt/container/"     0                   0 B                 5 weeks ago         Exited (0) 5 weeks ago        hungry_lalande
+```
