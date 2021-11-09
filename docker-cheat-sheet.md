@@ -369,3 +369,5 @@ CONTAINER ID        IMAGE                                                       
 c37e20de7f24        4595d2bdfbaa                                                  "/bin/sh -c 'yum -..."   0                   12.4 MB             19 minutes ago      Exited (127) 18 minutes ago   thirsty_mclean
 2c8599eccdcd        912f38da3750                                                  "ls /opt/container/"     0                   0 B                 5 weeks ago         Exited (0) 5 weeks ago        hungry_lalande
 ```
+ 
+Check out for more info [here](https://windsock.io/explaining-docker-image-ids/) (e.g. *inspect* command)
