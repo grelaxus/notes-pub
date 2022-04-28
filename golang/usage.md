@@ -5,7 +5,9 @@
 ```sh
 GOOS=linux GOARCH=amd64 go build -o build/bin/my-k8s-operator ./cmd/manager
 ```
-## Upgrading dependencies
+
+## Go Modules
+### Upgrading dependencies
 As it described [here](https://go.dev/blog/using-go-modules#upgrading-dependencies)..
 
 List all dependencies
@@ -30,6 +32,33 @@ $ go list -m all | grep k8s.io/api
 k8s.io/api v0.23.6
 ...
 ```
+### Troubleshooting
+
+if go.mod contains
+```sh
+require (
+...
+	k8s.io/apimachinery v0.23.6
+...
+)
+replace (
+...
+k8s.io/apimachinery => k8s.io/apimachinery v0.0.0-20191004115801-a2eda9f80ab8
+...) 
+```
+and following error comes up during 'go build':
+```sh
+go/pkg/mod/k8s.io/client-go@v0.23.6/metadata/metadata.go:28:2: module k8s.io/apimachinery@latest found (v0.23.6, replaced by k8s.io/apimachinery@v0.0.0-20191004115801-a2eda9f80ab8), but does not contain package k8s.io/apimachinery/pkg/apis/meta/internalversion/scheme
+```
+- just remove the apimachinery replacement
+
+### Downgrade dependency package
+
+Use [@none](https://go.dev/ref/mod#mvs-downgrade):
+```sh
+go get github.com/operator-framework/operator-sdk@none
+```
+
 
 # Install on Ubuntu
 ## Install Go
