@@ -1,4 +1,36 @@
 
+# Build
+
+## Build for Linus amd64
+```sh
+GOOS=linux GOARCH=amd64 go build -o build/bin/my-k8s-operator ./cmd/manager
+```
+## Upgrading dependencies
+As it described [here](https://go.dev/blog/using-go-modules#upgrading-dependencies)..
+
+List all dependencies
+```sh
+$ go list -m all
+github.com/my-k8s-operator
+...
+k8s.io/api v0.0.0-20191016110408-35e52d86657a
+```
+we can see we’re using an untagged version of k8s.io/api. Let’s upgrade to the latest tagged version
+
+
+```sh
+$ go get k8s.io/api
+go: k8s.io/api upgrade => v0.23.6
+go: downloading k8s.io/api v0.23.6
+```
+
+Now check that it is upgraded
+```sh
+$ go list -m all | grep k8s.io/api
+k8s.io/api v0.23.6
+...
+```
+
 # Install on Ubuntu
 ## Install Go
 Download the Go binary file:
