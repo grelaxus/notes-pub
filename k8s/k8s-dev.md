@@ -11,6 +11,9 @@ Creating [Operators](https://faun.pub/writing-your-first-kubernetes-operator-8f3
 
 # API/SDK Upgrades
 
+## Kube API migration
+https://kubernetes.io/docs/reference/using-api/deprecation-guide/
+
 ## Migrating Operator SDK
 ### Migrating Operators from older versions (to v1.0.x)
 https://v1-0-x.sdk.operatorframework.io/docs/building-operators/golang/project_migration_guide/
