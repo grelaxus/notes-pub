@@ -6,7 +6,7 @@
 
 [Kustomize](https://github.com/kubernetes-sigs/kustomize)
 
-Creating [Operators](https://faun.pub/writing-your-first-kubernetes-operator-8f3df4453234)
+Creating [Operators](https://faun.pub/writing-your-first-kubernetes-operator-8f3df4453234)  
 [Operator Lifecycle Manager](https://github.com/operator-framework/operator-lifecycle-manager)
 
 
