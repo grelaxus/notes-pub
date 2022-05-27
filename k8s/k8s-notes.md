@@ -1,3 +1,7 @@
+# Searching for service accross all k8s kinds
+```sh
+ oc get $(oc api-resources --namespaced=true --verbs=list -o name | awk '{printf "%s%s",sep,$0;sep=","}') --ignore-not-found -n default -o=custom-columns=KIND:.kind,NAME:.metadata.name --sort-by='kind' | grep my-service  | grep -v Event
+```
 # Run proxy to acces Kube API via curl
 ```sh
 $ kubectl proxy
