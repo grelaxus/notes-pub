@@ -60,6 +60,57 @@ The output:
 ```
 
 # Troubleshooting
+
+## When a k8s node is in NotReady state
+
+### Problem
+```sh
+$ oc get nodes
+NAME                                         STATUS     ROLES    AGE   VERSION
+...
+ip-10-0-193-142.us-east-2.compute.internal   NotReady   worker   32d   v1.19.0+e49167a
+
+$ oc describe node ip-10-0-193-142.us-east-2.compute.internal
+...
+Conditions:
+  Type             Status    LastHeartbeatTime                 LastTransitionTime                Reason              Message
+  ----             ------    -----------------                 ------------------                ------              -------
+  MemoryPressure   Unknown   Tue, 14 Jun 2022 10:02:25 -0700   Tue, 14 Jun 2022 10:06:04 -0700   NodeStatusUnknown   Kubelet stopped posting node status.
+  DiskPressure     Unknown   Tue, 14 Jun 2022 10:02:25 -0700   Tue, 14 Jun 2022 10:06:04 -0700   NodeStatusUnknown   Kubelet stopped posting node status.
+  PIDPressure      Unknown   Tue, 14 Jun 2022 10:02:25 -0700   Tue, 14 Jun 2022 10:06:04 -0700   NodeStatusUnknown   Kubelet stopped posting node status.
+  Ready            Unknown   Tue, 14 Jun 2022 10:02:25 -0700   Tue, 14 Jun 2022 10:06:04 -0700   NodeStatusUnknown   Kubelet stopped posting node status.
+```
+On the node (ssh in):  
+```sh
+[core@ip-10-0-193-142 ~]$ systemctl status kubelet
+ kubelet.service - Kubernetes Kubelet
+   Loaded: loaded (/etc/systemd/system/kubelet.service; enabled; vendor preset: enabled)
+  Drop-In: /etc/systemd/system/kubelet.service.d
+           └─10-mco-default-env.conf
+   Active: active (running) since Tue 2022-06-28 01:42:27 UTC; 4h 38min ago
+...
+   CGroup: /system.slice/kubelet.service
+           └─2595 kubelet --config=/etc/kubernetes/kubelet.conf --bootstrap-kubeconfig=/etc/kubernetes/kubeconfig --kubeconfig=/var/lib/kubelet/kubeconfig --container-runtime=remote --container-run>
+
+...
+Jun 28 06:21:05 ip-10-0-193-142 hyperkube[2595]: E0628 06:21:05.809998    2595 kubelet.go:2190] node "ip-10-0-193-142.us-east-2.compute.internal" not found
+Jun 28 06:21:05 ip-10-0-193-142 hyperkube[2595]: E0628 06:21:05.910116    2595 kubelet.go:2190] node "ip-10-0-193-142.us-east-2.compute.internal" not found
+...
+```
+In most cases for me this was an issue with pending CSRs, that needed to be approved. 
+```sh
+$ oc get csr | grep Pending
+csr-5phm5   4m32s   kubernetes.io/kube-apiserver-client-kubelet   system:serviceaccount:openshift-machine-config-operator:node-bootstrapper   Pending
+...
+csr-6jdr8   3h41m   kubernetes.io/kube-apiserver-client-kubelet   system:serviceaccount:openshift-machine-config-operator:node-bootstrapper   Pending
+```
+Approve them:
+```sh
+for i in `oc get csr --no-headers | grep -i pending |  awk '{ print $1 }'`; do oc adm certificate approve $i; done
+```
+
+[This](https://komodor.com/learn/how-to-fix-kubernetes-node-not-ready-error/) one is also a good guidance to troubleshoot the NotReady issue if the above doesn't work
+
 ## [Remove Namespace stuck in terminating state after delete ](https://linuxhelp4u.blogspot.com/2019/01/kubernetes-remove-namespace-stuck-in.html).  
 ```sh
 kubectl get namespaces | grep developer
