@@ -1,5 +1,4 @@
-
-[Finding out a first commit in a branch](https://stackoverflow.com/a/4991675/5071635):
+## [Finding out a first commit in a branch](https://stackoverflow.com/a/4991675/5071635):
 Finding first common commit between 'master' and 'topic' branch:
 ```sh
 diff -u <(git rev-list --first-parent topic) \
@@ -7,16 +6,22 @@ diff -u <(git rev-list --first-parent topic) \
      sed -ne 's/^ //p' | head -1
 ```
 
-[How to list commits since certain commit?](https://stackoverflow.com/questions/7693249/how-to-list-commits-since-certain-commit)
+## [How to list commits since certain commit?](https://stackoverflow.com/questions/7693249/how-to-list-commits-since-certain-commit)
 ```sh
 git checkout topic
 git rev-list <since_hash>..HEAD
 ```
 
-[Why do I need to explicitly push a new branch?](https://stackoverflow.com/questions/17096311/why-do-i-need-to-explicitly-push-a-new-branch)  
+## List all commits since a 'date' on a BRANCH_NAME.  
+```sh
+git log BRANCH_NAME --pretty="%h - %s" --since="2021-12-03"
+```
+More info can be found [here](https://stackoverflow.com/questions/14848274/git-log-to-get-commits-only-for-a-specific-branch)
 
-[how to delete all commit history in github?](https://stackoverflow.com/questions/13716658/how-to-delete-all-commit-history-in-github):  
 
+## [Why do I need to explicitly push a new branch?](https://stackoverflow.com/questions/17096311/why-do-i-need-to-explicitly-push-a-new-branch)  
+
+## [how to delete all commit history in github?](https://stackoverflow.com/questions/13716658/how-to-delete-all-commit-history-in-github):  
 
 Checkout
 
