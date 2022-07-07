@@ -1,3 +1,13 @@
+# Files
+[How to find directories larger than 100Mb](https://www.unixtutorial.org/how-to-find-directories-larger-than-1gb-in-linux/):  
+```sh
+$ du -h -t 30M /usr/lib64/
+36M	/usr/lib64/python2.7
+41M	/usr/lib64/python3.6
+219M	/usr/lib64/
+```
+-t here stands for threshold
+
 # Network
 Start listening on a specified IP/port:
 ```sh
