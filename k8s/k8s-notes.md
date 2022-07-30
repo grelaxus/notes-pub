@@ -18,6 +18,16 @@ curl -k -H "Content-Type: application/json" -X GET http://127.0.0.1:8001/
 curl -k -H "Content-Type: application/json" -X GET http://127.0.0.1:8001/.well-known/openid-configuration
 ```
 
+# Kubelet logs
+If you run kubelet using systemd, then you could use the [following method to see kubelet's logs](https://stackoverflow.com/questions/34113476/where-are-the-kubernetes-kubelet-logs-located):
+```sh
+$ journalctl -u kubelet
+```
+also following journalctl commands maybe useful:
+```sh
+sudo journalctl -u kubelet --since "2022-07-28" --until "2022-07-29"  > ip-10-0-140-133-journalctl-20220728-kubelet.log
+sudo journalctl -u kubelet --since "yesterday" --until "today"  > ip-10-0-140-133-journalctl-20220729.log
+```
 
 # Accessing k8s node without SSH
 
