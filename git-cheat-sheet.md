@@ -1,3 +1,8 @@
+## Clone a certain branch
+```sh
+git clone --single-branch --branch v1.10.4 https://github.com/rook/rook.git
+```
+
 ## [Finding out a first commit in a branch](https://stackoverflow.com/a/4991675/5071635):
 Finding first common commit between 'master' and 'topic' branch:
 ```sh
