@@ -1,3 +1,8 @@
+# Delete stuck objects
+[Using Finalizers to Control Deletion](https://kubernetes.io/blog/2021/05/14/using-finalizers-to-control-deletion/)
+```sh
+patch CephObjectStoreUser/my-user --type json --patch='[ { "op": "remove", "path": "/metadata/finalizers" } ]' -n rook-ceph
+```
 # Searching for service accross all k8s kinds
 ```sh
  oc get $(oc api-resources --namespaced=true --verbs=list -o name | awk '{printf "%s%s",sep,$0;sep=","}') --ignore-not-found -n default -o=custom-columns=KIND:.kind,NAME:.metadata.name --sort-by='kind' | grep my-service  | grep -v Event
@@ -13,6 +18,7 @@ in another terminal:
 $ curl -H "Content-Type: application/json" -X PUT --data-binary @developer-ns.json http://127.0.0.1:8001/api/v1/namespaces/developer/finalize
 ```
 see how to [remove Namespace stuck in terminating state](https://github.com/grelaxus/notes-pub/edit/master/k8s/k8s-notes.md#remove-namespace-stuck-in-terminating-state-after-delete-)
+also see above how to delete stuck objects in general, no only namespaces
 ```sh
 curl -k -H "Content-Type: application/json" -X GET http://127.0.0.1:8001/
 curl -k -H "Content-Type: application/json" -X GET http://127.0.0.1:8001/.well-known/openid-configuration
