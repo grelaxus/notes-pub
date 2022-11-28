@@ -1,11 +1,11 @@
 # Delete stuck objects
 [Using Finalizers to Control Deletion](https://kubernetes.io/blog/2021/05/14/using-finalizers-to-control-deletion/)
 ```sh
-patch CephObjectStoreUser/my-user --type json --patch='[ { "op": "remove", "path": "/metadata/finalizers" } ]' -n rook-ceph
+kubectl patch CephObjectStoreUser/my-user --type json --patch='[ { "op": "remove", "path": "/metadata/finalizers" } ]' -n rook-ceph
 ```
 # Searching for service accross all k8s kinds
 ```sh
- oc get $(oc api-resources --namespaced=true --verbs=list -o name | awk '{printf "%s%s",sep,$0;sep=","}') --ignore-not-found -n default -o=custom-columns=KIND:.kind,NAME:.metadata.name --sort-by='kind' | grep my-service  | grep -v Event
+kubectl get $(oc api-resources --namespaced=true --verbs=list -o name | awk '{printf "%s%s",sep,$0;sep=","}') --ignore-not-found -n default -o=custom-columns=KIND:.kind,NAME:.metadata.name --sort-by='kind' | grep my-service  | grep -v Event
 ```
 # Run proxy to acces Kube API via curl
 ```sh
