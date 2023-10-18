@@ -1,4 +1,6 @@
-
+##  MacOS netstat alternative
+Print a process listening on port 8000:  
+`sudo lsof -nP -i4TCP:8000 | grep LISTEN`
 ## CLI
 
 [command output redirect to both: file and terminal](https://stackoverflow.com/questions/13591374/command-output-redirect-to-file-and-terminal)
