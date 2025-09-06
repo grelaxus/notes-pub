@@ -13,6 +13,35 @@ Furthermore, if you want to _append_ to the log file (say it exists), use tee -a
 ```sh
 ls 2>&1 | tee -a /tmp/ls.log
 ```
+### find +exclude
+
+Find (print) all dirs with name 'api', exclude 'node_modules' and 'lib' dirs from the traversal
+```sh
+find workspace/sandbox/  -type d \( -name node_modules -o -name lib \) -prune -o -type d -name api -print
+```
+**Note 1:** if we drop last '-print' then the default 'print' action will be activated and in that cases 'print' will short-circuit even for lib and node_modules dirs
+**Note 2:** the () are escaped, i.e. \( \) and there are spaces around them
+
+`find` evaluates left to right like a logical expression.
+
+Think of it as:
+```bash
+IF condition THEN prune ELSE do other things
+```
+
+Example:
+```bash
+find . -type d -name node_modules -prune -o -type f -print
+```
+Think of it as 
+```bash
+IF directory name == "node_modules"
+    THEN prune   # (don’t descend, don’t print)
+ELSE
+    IF it’s a file
+        THEN print it
+```
+
 ### grep
 Including two lines Before the match and 10 lines After:  
 ```sh
